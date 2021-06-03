@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% set projects = (hidden_pages|get_page("projects")) %}
+
+{% block title %}{{ SITENAME }}{% endblock %}
+{% block customStyleSheets %}
+	<link rel="stylesheet" type="text/css" href="{{ SITEURL }}../theme/css/"/>
+{% endblock %}
+
+{% block content %}
+    {{ index.content }}
+{% endblock %}

@@ -1,0 +1,85 @@
+@font-face{
+	font-family: "Computer Modern";
+	src: url('../fonts/Serif/Computer Modern/cmunrm.ttf');
+}
+
+body{
+	font-family: "Computer Modern", Garamond, serif;
+	color: black;
+	width: 60%;
+	margin: 0 auto;
+	padding: 30px 0;
+	background-color: #856f49;
+}
+
+.siteTitle{text-align: center;}
+.siteTitle a{
+	color: black;
+	text-decoration: none;
+	padding: 10px;
+}
+.siteTitle a:hover{text-decoration: underline;}
+.siteTitle a:active{
+	color: white;
+	background: black;
+	border-radius: 4px;
+}
+
+.NavBar{
+	padding: 10px 10px;
+	margin: 0;
+	text-align: center;
+	list-style-type: none;
+	border-top: solid;
+	border-bottom: solid;
+	/*border-color: */
+
+	display: flex;
+	justify-content: space-between;
+}
+.NavBar a:link{
+	color: black;
+	text-decoration: none;
+	font-weight: bolder;
+	padding: 0 10px;
+}
+.NavBar a:visited{color: black;}
+.NavBar a:hover{text-decoration: underline;}
+.NavBar a:focus{text-decoration: underline;}
+.NavBar a:active{
+	color: white;
+	background-color: black;
+	border-radius: 4px;
+}
+
+/*.blogList li a, a:link{
+	color: black;
+}*/
+
+.content li, a, a:link{
+	color: black;
+}
+
+.footer{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	position: absolute;
+	bottom: 10px;
+	height: 2.5rem;
+	width: 60%;
+	justify-content: center;
+	/*border: dashed;*/
+}
+.footer a{
+	color: black;
+	text-decoration: none;
+	padding: 10px;
+	display: inline-block;
+}
+.footer a:hover{
+	color: white;
+	background: black;
+	border-radius: 4px;
+}

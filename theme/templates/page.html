@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+	<h2>{{ page.title }}</h2>
+	
+	{% if page.slug == "blog" %}
+		{{ page.content }}
+		<ul class="blogList">
+			{% for article in articles|get_article_by_type("BlogEntry") %}
+				<li><span><a href="/{{ article.url }}">{{ article.title }}</a>: {{ article.summary }}</span></li>
+				<label>Posted on <strong>{{ article.date|strftime("%B %d, %Y") }}</strong></label><br><br>
+			{% endfor %}
+		</ul>
+	{% elif page.slug == "projects" %}
+		{{ page.content}}
+		<ul>
+			{% for article in articles|get_article_by_type("ProjectDescription") %}
+			<li><span><a href="/{{ article.url }}">{{ article.title }}</a></span></li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		{{ page.content }}
+	{% endif %}
+{% endblock %}

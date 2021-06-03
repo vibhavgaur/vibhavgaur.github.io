@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>{% block title %}{% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="{{ SITEURL }}../theme/css/base.css"/>
+	{% block customStyleSheets %}{% endblock %}
+</head>
+
+<body>
+	<h1 class="siteTitle"><a href="{{ SITEURL }}../index.html">{{ 	SITENAME }}</a></h1>
+
+	<ul class="NavBar">
+		{% for page in pages %}
+			<li><a href="../{{ page.url }}">{{ page.title }}</a></li>
+		{% endfor %}
+	</ul>
+
+	<div class="content">
+		{% block content %}{% endblock %}
+	</div>
+
+	<footer>
+		<ul class="footer">
+			<li><a href="https://github.com/vibhavgaur">GitHub</a></li>
+			<li><a href="mailto:vibhavgaur@me.com">Email</a></li>
+			<li><a href="https:/twitter.com/VibhavGaur">Twitter</a></li>
+			<li><a href="https://www.linkedin.com/in/vibhav-gaur-775815137/">LinkedIn</a></li>
+		</ul>
+	</footer> 
+</body>
+
+</html>

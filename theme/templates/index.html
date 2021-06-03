@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% set index = (hidden_pages|get_page("index")) %}
+
+{% block title %}{{ SITENAME }}{% endblock %}
+{% block customStyleSheets %}
+	<link rel="stylesheet" type="text/css" href="{{ SITEURL }}../theme/css/index.css"/>
+{% endblock %}
+
+{% block content %}
+	<div class="indexWrapper">
+		<div class="indexContent">
+			{{ index.content }}
+		</div>
+
+		<img class="indexPicture" width=300px src="{{ SITEURL }}../pages/frontPagePicture.jpg">
+	</div>
+{% endblock %}
