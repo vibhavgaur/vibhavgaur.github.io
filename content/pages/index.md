@@ -8,6 +8,8 @@ Summary: Home page
 * [ ] Fix the GVS pdf link on the coursework page
 * [ ] Download some package to render LaTeX and the LaTeX logo in markdown -- [https://nosferalatu.com/Pelican.html](https://nosferalatu.com/Pelican.html)
 * [ ] Add subtitle to the index image -- *"Your average brogrammer"*
+* [ ] Fix the issue where the footer overlaps the body content at high zoom levels (and probably even at low zoom levels if there was enough text) -- most likely need to fix the padding in base.css
+* [ ] Fix the image height issue -- the image should not stretch and squeeze with the text, and the text should wrap around the image
 
 ## Hello world!
 
