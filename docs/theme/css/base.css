@@ -1,12 +1,10 @@
 @font-face{
 	font-family: "Computer Modern";
 	src: url('fonts/Serif/Computer Modern/cmunorm.ttf');
-	font-weight: bold;
 }
 
 body{
 	font-family: "Computer Modern", Garamond, serif;
-	font-weight: bold;
 	color: black;
 	width: 60%;
 	margin: 0 auto;
