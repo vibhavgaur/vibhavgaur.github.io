@@ -1,6 +1,7 @@
 @font-face{
 	font-family: "Computer Modern";
 	src: url('fonts/Serif/Computer Modern/cmunorm.ttf');
+	font-weight: bold;
 }
 
 body{
