@@ -1,2 +1,3 @@
 # ignore the .swp files -- seem to be created when opening files in vim
 *.swp
+*.pyc

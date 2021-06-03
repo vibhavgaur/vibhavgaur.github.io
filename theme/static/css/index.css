@@ -1,5 +1,5 @@
 .indexWrapper{display: flex;}
-.indexContent{margin-right: 10px;}
+.indexContent{margin-right: 15px;}
 .indexContent a, a:link{color: black;}
 .indexPicture{
 	border: solid;

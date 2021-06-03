@@ -19,6 +19,13 @@ MENUITEMS = (
 	('Blog','/pages/blog.html')
 	)
 
+#MARKDOWN = {
+#       'extension_configs': {
+#           'markdown.extension.extra': {},
+#           },
+#       'output_format': 'html5',
+#       }
+
 TIMEZONE = 'America/Chicago'
 
 DEFAULT_LANG = 'English'
