@@ -8,6 +8,7 @@ I am writing this post to outline the journey I took to learn how to build a web
 This is **not** a tutorial.
 This is simply *one* way that *one* guy on the internet built *one* website.
 So, you know, don't waste your time reading this...
+*But*, the source code for this is available on [GitHub](https://github.com/vibhavgaur/vibhavgaur.github.io), so you can check how I did stuff there if you like something.
 
 I (still) am a complete noob to web development, but I wanted to build a personal website for myself for a long time.
 I did not have the slightest idea about where to start, but I knew that I did not want to use a website making service (squarespace, wix, etc.) to build it.
