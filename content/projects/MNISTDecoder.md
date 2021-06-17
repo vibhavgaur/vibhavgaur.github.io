@@ -37,3 +37,10 @@ These signify the size of the images.
 In the case of the MNIST data set, the images are `28 x 28` pixels.
 So after the first 15 bytes, the 16th byte onwards contains pixel data -- 1 pixel value per byte as a grayscale intensity value between 0 and 255.
 
+```python
+import numpy as np
+thing = []
+```
+To insert code into markdown -- [https://python-markdown.github.io/extensions/fenced_code_blocks/#syntax-highlighting](https://python-markdown.github.io/extensions/fenced_code_blocks/#syntax-highlighting)
+
+To highlight syntax using markdown extension -- [https://python-markdown.github.io/extensions/code_hilite/](https://python-markdown.github.io/extensions/code_hilite/)
