@@ -7,4 +7,5 @@ Slug: projects
 * Computer vision
 * Optimal Controls project
 * this website?
+* [Least squares -- solving over and under-determined linear systems](http://people.csail.mit.edu/bkph/articles/Pseudo_Inverse.pdf)
 ---
