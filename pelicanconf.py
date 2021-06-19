@@ -25,18 +25,10 @@ MENUITEMS = (
 MARKDOWN = {
     'extension_configs': {
         'markdown.extensions.codehilite': {'css_class': 'codeBlock'},
-        #'markdown.extensions.extra': {},
         'markdown.extensions.meta': {},
     },
     'output_format': 'html5',
 }
-
-#MARKDOWN = {
-#       'extension_configs': {
-#           'markdown.extension.extra': {},
-#           },
-#       'output_format': 'html5',
-#       }
 
 TIMEZONE = 'America/Chicago'
 
