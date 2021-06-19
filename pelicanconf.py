@@ -8,6 +8,9 @@ SITEURL = ''
 PATH = 'content'
 # PAGE_PATHS = ['/pages']
 
+PLUGIN_PATHS = ['./plugins/plugins']
+PLUGINS = ['render_math']
+
 LOAD_CONTENT_CACHE = False
 
 DISPLAY_PAGES_ON_MENU = True
@@ -18,6 +21,15 @@ MENUITEMS = (
 	('Resume','/pages/resume.html'),
 	('Blog','/pages/blog.html')
 	)
+
+MARKDOWN = {
+    'extension_configs': {
+        'markdown.extensions.codehilite': {'css_class': 'codeBlock'},
+        #'markdown.extensions.extra': {},
+        'markdown.extensions.meta': {},
+    },
+    'output_format': 'html5',
+}
 
 #MARKDOWN = {
 #       'extension_configs': {

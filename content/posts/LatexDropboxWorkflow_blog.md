@@ -10,4 +10,4 @@ PageType: BlogEntry
 
 $\LaTeX\ $ is amazing. But getting your project or lab group to just show up to meetings can be hard enough. So here is an easy way to collaborate with them on a report - even if it is filled with BS, it will at least look professional!
 
-\[ \delta x = \frac{\epsilon}{\psi_{x + 2}} ]\ 
+$$ \delta x = \frac{\epsilon}{\psi_{x + 2}} $$

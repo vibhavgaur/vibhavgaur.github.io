@@ -47,11 +47,13 @@ The following 4 bytes are another 32 bit <code>int</code> which holds the number
 The next 4 bytes contain the number of rows, followed by another 4 bytes which contain the number of columns.
 These signify the size of the images.
 In the case of the MNIST data set, the images are <code>28 x 28</code> pixels.
-So after the first 15 bytes, the 16th byte onwards contains pixel data -- 1 pixel value per byte as a grayscale intensity value between 0 and 255.</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+So after the first 15 bytes, the 16th byte onwards contains pixel data -- 1 pixel value per byte as a grayscale intensity value between 0 and 255.
+This can be done in python </p>
+<table class="codeBlocktable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="codeBlock"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="n">thing</span> <span class="o">=</span> <span class="p">[]</span>
 </code></pre></div>
-
+</td></tr></table>
 <p>To insert code into markdown -- <a href="https://python-markdown.github.io/extensions/fenced_code_blocks/#syntax-highlighting">https://python-markdown.github.io/extensions/fenced_code_blocks/#syntax-highlighting</a></p>
 <p>To highlight syntax using markdown extension -- <a href="https://python-markdown.github.io/extensions/code_hilite/">https://python-markdown.github.io/extensions/code_hilite/</a></p>
 	</div>
