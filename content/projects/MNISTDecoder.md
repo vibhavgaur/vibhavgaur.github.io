@@ -38,9 +38,11 @@ In the case of the MNIST data set, the images are `28 x 28` pixels.
 So after the first 15 bytes, the 16th byte onwards contains pixel data -- 1 pixel value per byte as a grayscale intensity value between 0 and 255.
 This can be done in python 
 
-	#!python
-	import numpy as np
-	thing = []
+
+	:::python
+	import cv2
+	this = that
+	cv2.imshow(img1, 'windowsize', 55)
 
 To insert code into markdown -- [https://python-markdown.github.io/extensions/fenced_code_blocks/#syntax-highlighting](https://python-markdown.github.io/extensions/fenced_code_blocks/#syntax-highlighting)
 
