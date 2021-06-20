@@ -11,6 +11,7 @@ Summary: Home page
 * [x] Fix the image height issue -- the image should not stretch and squeeze with the text, and the text should wrap around the image
 * [x] Make the footer appear at the end of the body content, needs to be done in CSS.
 * [ ] Figure out a way to format inline code -- there is probably just a language specifier for this.
+* [ ] Changin colors randomly from a list in CSS [https://stackoverflow.com/questions/25507496/css-change-text-color-randomly](https://stackoverflow.com/questions/25507496/css-change-text-color-randomly)
 
 ## Hello world!
 
