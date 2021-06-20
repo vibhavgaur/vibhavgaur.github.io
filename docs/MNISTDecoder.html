@@ -36,27 +36,63 @@ On Windows, the <code>Expand-Archive</code> powershell utility does not support 
 I have git bash installed, so I was still able to use <code>gunzip</code> through that (or, get the expanded versions from my <a href="https://github.com/vibhavgaur/NeuralNetworkPractice">GitHub</a> repo for this project in the "<code>MNISTData</code>" folder).
 These files are stored in a simple format directly in the form of the bytes that represent the image data and label data.
 They can be "decoded" by simply reading the bytes as a stream of information from the files.
-This can be done with any utility that lets you read a file in as a series of bytes.
-I have done so in python.</p>
-<p>According to the description of the files on the website, the image have a few things at the top (or beginning) of the bytestream before reaching the image pixel data.</p>
+This can be done with any utility that lets you read a file in as a series of bytes.</p>
+<p>According to the description of the files on the website, the image files have a few things at the top (or beginning) of the bytestream before reaching the image pixel data.</p>
 <p align="center">
 <img src="../images/MNIST_imageFiles.png">
 </p>
 
 <p>The first 4 bytes are a 32 bit <code>int</code> "magic number". 
-The following 4 bytes are another 32 bit <code>int</code> which holds the number of images in the file.
+I'm not fully sure what a magic number is supposed to do, but it has a significance in computer science.
+The following 4 bytes are another 32 bit <code>int</code> which holds the number of images in the file (60,000 in this case).
 The next 4 bytes contain the number of rows, followed by another 4 bytes which contain the number of columns.
 These signify the size of the images.
 In the case of the MNIST data set, the images are <code>28 x 28</code> pixels.
 So after the first 15 bytes, the 16th byte onwards contains pixel data -- 1 pixel value per byte as a grayscale intensity value between 0 and 255.
-This can be done in python </p>
-<div class="codeBlock"><pre><span></span><code><span class="kn">import</span> <span class="nn">cv2</span>
-<span class="n">this</span> <span class="o">=</span> <span class="n">that</span>
-<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img1</span><span class="p">,</span> <span class="s1">&#39;windowsize&#39;</span><span class="p">,</span> <span class="mi">55</span><span class="p">)</span>
+Here's how this can be done in python: </p>
+<div class="codeBlock"><pre><span></span><code><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">images_file</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+<span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># decoding the header of the file -- these are all 32 bit integers coded in these bytes</span>
+<span class="n">magicWord_32bit</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># read the first 4 bytes (8*4 = 32 bits) -- the magic word</span>
+<span class="n">n_images_32bit</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># number of images</span>
+<span class="n">n_rows_32bit</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>    <span class="c1"># number of rows in each image</span>
+<span class="n">n_cols_32bit</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>    <span class="c1"># number of columns in each image</span>
+
+<span class="c1"># convert to integers (subscript [0] because struct.unpack always returns a tuple)</span>
+<span class="n">magicWord</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;&gt;i&#39;</span><span class="p">,</span> <span class="n">magicWord_32bit</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">n_images</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;&gt;i&#39;</span><span class="p">,</span> <span class="n">n_images_32bit</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">n_rows</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;&gt;i&#39;</span><span class="p">,</span> <span class="n">n_rows_32bit</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">n_cols</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;&gt;i&#39;</span><span class="p">,</span> <span class="n">n_cols_32bit</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Read the entire file as a stream of bytes</span>
+<span class="c1"># The innermost for loop chops off the bytestream at the end of each column of the image</span>
+<span class="c1"># The middle for loop chops off the bytestream at the end of each row of the image</span>
+<span class="c1"># The outermost for loop chops off the bytestream at the end of each image</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_images</span><span class="p">):</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_rows</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_cols</span><span class="p">):</span>
+                <span class="n">byte</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">pixel</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">byte</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">image</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pixel</span><span class="p">)</span>
+        <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">images</span>
 </code></pre></div>
 
-<p>To insert code into markdown -- <a href="https://python-markdown.github.io/extensions/fenced_code_blocks/#syntax-highlighting">https://python-markdown.github.io/extensions/fenced_code_blocks/#syntax-highlighting</a></p>
-<p>To highlight syntax using markdown extension -- <a href="https://python-markdown.github.io/extensions/code_hilite/">https://python-markdown.github.io/extensions/code_hilite/</a></p>
+<p>A similar strategy can be followed for the labels, with a slightly different header at the beginning of the bytestream.</p>
+<p align="center">
+<img src="../images/MNIST_imageLabels.png">
+</p>
+
+<p>Note that for the label files, we have the first 4 bytes with the 32 bit <code>int</code> "magic number".
+In the next 4 bytes we have another 32 bit <code>int</code> that stores the number of items (in this case labels, 60,000 of them).
+Then, from the 8th byte onwards we have 1 label per byte, with label values going from 0 to 9.
+This can be read using the following code in python:</p>
+<h1>!python</h1>
 		</div>
 
 		<footer>

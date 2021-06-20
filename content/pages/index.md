@@ -7,9 +7,10 @@ Summary: Home page
 * [x] Fix the title link -- make it more obvious that the title is a link/button.
 * [ ] Fix the GVS pdf link on the coursework page
 * [x] Download some package to render LaTeX and the LaTeX logo in markdown -- [https://nosferalatu.com/Pelican.html](https://nosferalatu.com/Pelican.html)
-* [ ] Fix the issue where the footer overlaps the body content at high zoom levels (and probably even at low zoom levels if there was enough text) -- most likely need to fix the padding in base.css
+* [ ] Fix the footer -- [https://www.freecodecamp.org/news/how-to-keep-your-footer-where-it-belongs-59c6aa05c59c/](https://www.freecodecamp.org/news/how-to-keep-your-footer-where-it-belongs-59c6aa05c59c/)
 * [x] Fix the image height issue -- the image should not stretch and squeeze with the text, and the text should wrap around the image
 * [x] Make the footer appear at the end of the body content, needs to be done in CSS.
+* [ ] Figure out a way to format inline code -- there is probably just a language specifier for this.
 
 ## Hello world!
 

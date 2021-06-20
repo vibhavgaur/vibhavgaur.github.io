@@ -22,28 +22,64 @@ I have git bash installed, so I was still able to use `gunzip` through that (or,
 These files are stored in a simple format directly in the form of the bytes that represent the image data and label data.
 They can be "decoded" by simply reading the bytes as a stream of information from the files.
 This can be done with any utility that lets you read a file in as a series of bytes.
-I have done so in python.
 
-According to the description of the files on the website, the image have a few things at the top (or beginning) of the bytestream before reaching the image pixel data.
+According to the description of the files on the website, the image files have a few things at the top (or beginning) of the bytestream before reaching the image pixel data.
 
 <p align="center">
 <img src="../images/MNIST_imageFiles.png">
 </p>
 
 The first 4 bytes are a 32 bit `int` "magic number". 
-The following 4 bytes are another 32 bit `int` which holds the number of images in the file.
+I'm not fully sure what a magic number is supposed to do, but it has a significance in computer science.
+The following 4 bytes are another 32 bit `int` which holds the number of images in the file (60,000 in this case).
 The next 4 bytes contain the number of rows, followed by another 4 bytes which contain the number of columns.
 These signify the size of the images.
 In the case of the MNIST data set, the images are `28 x 28` pixels.
 So after the first 15 bytes, the 16th byte onwards contains pixel data -- 1 pixel value per byte as a grayscale intensity value between 0 and 255.
-This can be done in python 
-
+Here's how this can be done in python: 
 
 	:::python
-	import cv2
-	this = that
-	cv2.imshow(img1, 'windowsize', 55)
+	f = open(images_file, 'rb')
+	images = []
+	
+	# decoding the header of the file -- these are all 32 bit integers coded in these bytes
+	magicWord_32bit = f.read(4) # read the first 4 bytes (8*4 = 32 bits) -- the magic word
+	n_images_32bit = f.read(4)  # number of images
+	n_rows_32bit = f.read(4)    # number of rows in each image
+	n_cols_32bit = f.read(4)    # number of columns in each image
+	
+	# convert to integers (subscript [0] because struct.unpack always returns a tuple)
+	magicWord = struct.unpack('>i', magicWord_32bit)[0]
+	n_images = struct.unpack('>i', n_images_32bit)[0]
+	n_rows = struct.unpack('>i', n_rows_32bit)[0]
+	n_cols = struct.unpack('>i', n_cols_32bit)[0]
+	
+	# Read the entire file as a stream of bytes
+	# The innermost for loop chops off the bytestream at the end of each column of the image
+	# The middle for loop chops off the bytestream at the end of each row of the image
+	# The outermost for loop chops off the bytestream at the end of each image
+	try:
+	    for i in range(n_images):
+	        image = []
+	        for r in range(n_rows):
+	            for c in range(n_cols):
+	                byte = f.read(1)
+	                pixel = struct.unpack('B', byte)[0]
+	                image.append(pixel)
+	        images.append(image)
+	finally:
+	    f.close()
+	    return images
 
-To insert code into markdown -- [https://python-markdown.github.io/extensions/fenced_code_blocks/#syntax-highlighting](https://python-markdown.github.io/extensions/fenced_code_blocks/#syntax-highlighting)
+A similar strategy can be followed for the labels, with a slightly different header at the beginning of the bytestream.
 
-To highlight syntax using markdown extension -- [https://python-markdown.github.io/extensions/code_hilite/](https://python-markdown.github.io/extensions/code_hilite/)
+<p align="center">
+<img src="../images/MNIST_imageLabels.png">
+</p>
+
+Note that for the label files, we have the first 4 bytes with the 32 bit `int` "magic number".
+In the next 4 bytes we have another 32 bit `int` that stores the number of items (in this case labels, 60,000 of them).
+Then, from the 8th byte onwards we have 1 label per byte, with label values going from 0 to 9.
+This can be read using the following code in python:
+
+#!python
