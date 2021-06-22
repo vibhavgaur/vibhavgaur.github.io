@@ -3,7 +3,13 @@
 
 AUTHOR = 'Vibhav Gaur'
 SITENAME = 'Vibhav Gaur'
-SITEURL = 'vibhavgaur.github.io'
+
+## URL Settings ##
+# SITEURL = 'https://vibhavgaur.github.io'
+SITEURL = ''
+
+# Uncomment following line if you want document-relative URLs when developing
+# RELATIVE_URLS = True
 
 PATH = 'content'
 # PAGE_PATHS = ['/pages']
@@ -15,14 +21,14 @@ PLUGINS = ['render_math',
 
 LOAD_CONTENT_CACHE = False
 
-DISPLAY_PAGES_ON_MENU = True
-MENUITEMS = (
-	('Home', ''),
-	('Coursework','/pages/coursework.html'),
-	('Projects','/pages/projects.html'),
-	('Resume','/pages/resume.html'),
-	('Blog','/pages/blog.html')
-	)
+# DISPLAY_PAGES_ON_MENU = True
+# MENUITEMS = (
+# 	('Home', ''),
+# 	('Coursework','/pages/coursework.html'),
+# 	('Projects','/pages/projects.html'),
+# 	('Resume','/pages/resume.html'),
+# 	('Blog','/pages/blog.html')
+# 	)
 
 MARKDOWN = {
     'extension_configs': {
@@ -57,9 +63,6 @@ DEFAULT_PAGINATION = False
 SITEMAP = {
         "format": "xml",
 }        
-
-# Uncomment following line if you want document-relative URLs when developing
-RELATIVE_URLS = True
 
 # Custom Jinja filter
 def get_page(hidden_pages, slug):
