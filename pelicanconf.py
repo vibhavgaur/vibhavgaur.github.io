@@ -3,7 +3,7 @@
 
 AUTHOR = 'Vibhav Gaur'
 SITENAME = 'Vibhav Gaur'
-SITEURL = ''
+SITEURL = 'vibhavgaur.github.io'
 
 PATH = 'content'
 # PAGE_PATHS = ['/pages']
