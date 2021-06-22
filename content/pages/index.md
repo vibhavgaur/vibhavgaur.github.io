@@ -11,7 +11,8 @@ Summary: Home page
 * [x] Fix the image height issue -- the image should not stretch and squeeze with the text, and the text should wrap around the image
 * [x] Make the footer appear at the end of the body content, needs to be done in CSS.
 * [ ] Figure out a way to format inline code -- there is probably just a language specifier for this.
-* [ ] Changin colors randomly from a list in CSS [https://stackoverflow.com/questions/25507496/css-change-text-color-randomly](https://stackoverflow.com/questions/25507496/css-change-text-color-randomly)
+* [ ] Changing colors randomly from a list in CSS [https://stackoverflow.com/questions/25507496/css-change-text-color-randomly](https://stackoverflow.com/questions/25507496/css-change-text-color-randomly)
+* [ ] Make the website available through google search [here](https://victor2code.github.io/blog/2019/07/04/jekyll-github-pages-appear-on-Google.html) and [here](https://stackoverflow.com/questions/49073043/get-github-pages-site-found-in-google-search-results)
 
 ## Hello world!
 

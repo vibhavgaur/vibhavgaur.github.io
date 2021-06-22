@@ -1,11 +1,11 @@
-Title: My super title
+Title: Test blogpost
 Date: 2021-05-21 16:02
 Modified: 2021-05-21 16:02
 Category: Python
 Tags: pelican, publishing
 Slug: test-post 
 Authors: Vibhav Gaur 
-Blurb: Short version for index and feeds
+Blurb: Testing testing...
 PageType: BlogEntry
 
 # This is a heading on level 1
