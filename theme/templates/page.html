@@ -9,8 +9,7 @@
 		{{ page.content }}
 		<ul class="blogList">
 			{% for article in articles|get_article_by_type("BlogEntry") %}
-				<li><span><a href="/{{ article.url }}">{{ article.title }}</a>: {{ article.summary }}</span></li>
-				<label>Posted on <strong>{{ article.date|strftime("%B %d, %Y") }}</strong></label><br><br>
+				<li><span><a href="/{{ article.url }}">{{ article.title }}</a>: {{ article.summary }}. Posted on <strong>{{ article.date|strftime("%B %d, %Y") }}</strong></span></li>
 			{% endfor %}
 		</ul>
 	{% elif page.slug == "projects" %}
