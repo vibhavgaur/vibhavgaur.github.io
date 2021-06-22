@@ -8,9 +8,9 @@
 	{% if page.slug == "blog" %}
 		{{ page.content }}
 		<ul class="blogList">
-			{% for article in articles|get_article_by_type("BlogEntry") %}
-				<li><span><a href="/{{ article.url }}">{{ article.title }}</a>: {{ article.summary }}. Posted on <strong>{{ article.date|strftime("%B %d, %Y") }}</strong></span></li>
-			{% endfor %}
+			{% for article in articles|get_article_by_type("BlogEntry") -%}
+				<li><span><a href="/{{ article.url }}">{{- article.title -}}</a>: {{ article.blurb }} (<strong>{{- article.date|strftime("%B %d, %Y") }})</strong> </span></li><br>
+			{%- endfor %}
 		</ul>
 	{% elif page.slug == "projects" %}
 		{{ page.content}}

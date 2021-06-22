@@ -5,7 +5,7 @@ Category: Python
 Tags: pelican, publishing
 Slug: test-post 
 Authors: Vibhav Gaur 
-Summary: Short version for index and feeds
+Blurb: Short version for index and feeds
 PageType: BlogEntry
 
 # This is a heading on level 1

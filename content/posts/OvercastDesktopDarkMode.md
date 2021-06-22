@@ -5,7 +5,7 @@ Category: Hax
 Tags: CSS, dark mode
 Slug: overcast-dark-mode
 Authors: Vibhav Gaur 
-Summary: A simple modification to make the Overcast desktop website have a dark theme.
+Blurb: A simple modification to make the Overcast desktop website have a dark theme.
 PageType: BlogEntry
 
 [Overcast](https://overcast.fm/) is the best podcast app out there. It sucks for Android users because its only available on iPhone, iPad, and Apple watch. But it has a web interfact which runs on any browser. Seriously, its great, so check it out. 

@@ -5,7 +5,7 @@ Category: Cooking
 Tags: Cooking, Recipe, Chickpeas
 Slug: gourmet-chickpea-recipe
 Authors: Vibhav Gaur 
-Summary: Easy but tasty chickpea recipe
+Blurb: Easy but tasty chickpea recipe
 article_path: posts/GourmetChickpeasRecipe.md
 PageType: BlogEntry
 
