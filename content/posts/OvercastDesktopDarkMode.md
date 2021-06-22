@@ -33,3 +33,10 @@ Once you have a way of injecting some CSS into a webpage, simply inject the foll
 	}
 
 I just looked at the HTML for the Overcast website and made a note of the elements whose colors would need to be changed. The code above is simply changing the colors of the background to black and changing the text for all the important stuff to white -- pick whatever colors you like, I like black and white. And I've used the same orange/pumpkin color for the headings in the body; looks pretty good imo.
+
+<p align = "center">
+	<img height=450 src="../images/OvercastDesktopDarkMode/OvercastDesktopDarkMode_Screenshot1.png">
+</p>
+<p align = "center">
+	<img height=700px src="../images/OvercastDesktopDarkMode/OvercastDesktopDarkMode_Screenshot2.png">
+</p>
