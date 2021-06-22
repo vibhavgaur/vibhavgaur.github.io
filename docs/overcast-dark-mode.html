@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Simple dark mode for Overcast on desktop</title>
+	<link rel="stylesheet" type="text/css" href="../theme/css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="../theme/css/code.css"/>
+</head>
+
+<body>
+	<h1 class="siteTitle"><a href="../index.html">Vibhav Gaur</a></h1>
+
+	<ul class="NavBar">
+			<li><a href="../pages/blog.html">Blog</a></li>
+			<li><a href="../pages/coursework.html">Coursework</a></li>
+			<li><a href="../pages/projects.html">Projects</a></li>
+			<li><a href="../pages/resume.html">Resume</a></li>
+	</ul>
+
+		<div class="content">
+	<h2>Simple dark mode for Overcast on desktop</h2>
+	<label>Posted on <strong>June 22, 2021</strong></label>
+		
+	<p><a href="https://overcast.fm/">Overcast</a> is the best podcast app out there. It sucks for Android users because its only available on iPhone, iPad, and Apple watch. But it has a web interfact which runs on any browser. Seriously, its great, so check it out. </p>
+<p>I like to have everything on my screen have a dark theme, I am not sure why everything doesn't at least offer a dark theme. This is a quick post about how you can make the Overcast desktop website have a dark mode. Its a very simple CSS injection and I did it in Chrome, but it should be a fairly similar process for other browsers. You will need an extension for your browser that lets you inject some CSS or JavaScript when your browser loads a website -- like <a href="https://github.com/Ruud14/Page-Manipulator">Page Manipulator</a> for Chrome. You can look up similar extensions for your browser.</p>
+<p>Once you have a way of injecting some CSS into a webpage, simply inject the following CSS when you load the Overcast website:</p>
+<div class="codeBlock"><pre><span></span><code><span class="nt">body</span><span class="p">{</span>
+<span class="k">color</span><span class="p">:</span> <span class="mh">#fc7e0f</span><span class="p">;</span>
+<span class="k">background-color</span><span class="p">:</span> <span class="kc">black</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">episodecell</span><span class="p">{</span>
+<span class="k">color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">feedcell</span><span class="p">{</span>
+<span class="k">color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">userdeletedepisode</span><span class="p">{</span>
+<span class="k">color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>I just looked at the HTML for the Overcast website and made a note of the elements whose colors would need to be changed. The code above is simply changing the colors of the background to black and changing the text for all the important stuff to white -- pick whatever colors you like, I like black and white. And I've used the same orange/pumpkin color for the headings in the body; looks pretty good imo.</p>
+		</div>
+
+		<footer>
+			<ul class="footer">
+				<li><a href="https://github.com/vibhavgaur">GitHub</a></li>
+				<li><a href="mailto:vibhavgaur@me.com">Email</a></li>
+				<li><a href="https://twitter.com/VibhavGaur">Twitter</a></li>
+				<li><a href="https://www.linkedin.com/in/vibhav-gaur-775815137/">LinkedIn</a></li>
+			</ul>
+		</footer> 
+</body>
+
+</html>
