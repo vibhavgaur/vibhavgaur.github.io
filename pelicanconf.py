@@ -9,7 +9,9 @@ PATH = 'content'
 # PAGE_PATHS = ['/pages']
 
 PLUGIN_PATHS = ['./plugins/plugins']
-PLUGINS = ['render_math']
+PLUGINS = ['render_math',
+            'sitemap'
+            ]
 
 LOAD_CONTENT_CACHE = False
 
@@ -46,10 +48,15 @@ AUTHOR_FEED_RSS = None
 LINKS =  (('My GitHub', 'https://github.com/vibhavgaur'),)
  
 # Social widget
-SOCIAL = (('You can add links in your config file', '#'),
-          ('Another social link', '#'),)
+# SOCIAL = (('You can add links in your config file', '#'),
+          # ('Another social link', '#'),)
 
 DEFAULT_PAGINATION = False
+
+# For the website to be indexed on Google
+SITEMAP = {
+        "format": "xml",
+}        
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
