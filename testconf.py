@@ -21,8 +21,6 @@ SITEURL = ''    # Default
 
 AUTHOR_SAVE_AS = ''       # Default: author/{slug}.html' -- set to '' so that the Author's page is not generated
 
-
-
 # STATIC_CREATE_LINKS =     # Default: False -- don't really know what this does
 
 
@@ -31,11 +29,7 @@ PATH = './content'
 # PAGE_PATHS = ['/pages']   # Default: ['pages']
 # ARTICLE_PATHS =           # Default: ['']
 # STATIC_PATHS =            # Default: ['images'] -- directory to look for static files
-
-
-
 THEME = './theme'
-
 OUTPUT_PATH = 'testOutput/'
 
 ## -----------------------------Template Settings----------------------------- ##
@@ -48,6 +42,7 @@ AUTHOR = 'Vibhav Gaur'
 
 
 ## -----------------------------Plugins Settings----------------------------- ##
+
 PLUGIN_PATHS = ['./plugins/plugins']    # directory where to look for plugins
 # List of plugins to load
 PLUGINS = ['render_math',
@@ -57,6 +52,7 @@ PLUGINS = ['render_math',
 LOAD_CONTENT_CACHE = False
 
 ## ---------------------------Markdown Settings--------------------------- ##
+
 # Extra config settings for the Markdown processor, specified as a dictionary
 # Markdown extensions automatically get processed through the extension_config option
 MARKDOWN = {
@@ -80,7 +76,7 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS =  (('My GitHub', 'https://github.com/vibhavgaur'),)
+# LINKS =  (('My GitHub', 'https://github.com/vibhavgaur'),)
  
 # Social widget
 # SOCIAL = (('You can add links in your config file', '#'),
@@ -98,12 +94,14 @@ SITEMAP = {
 # CACHE_PATH =              # Default: 'cache'
 # GZIP_CACHE =              # Default: True -- compress / decompress cache files using gzip
 # LOAD_CONTENT_CACHE =      # Default: False -- load unmodified content from cache
+# AUTORELOAD_IGNORE_CACHE = True      # Ignore cache option?
 
 ## ------------------------------Other Settings------------------------------ ##
 
 TYPOGRIFY = True            # Some HTML improvements are made if this is true
 
 DEFAULT_DATE_FORMAT = '%B %d, %Y'   # for the whole website
+
 
 
 ## ------------------------------Jinja Filters------------------------------ ##

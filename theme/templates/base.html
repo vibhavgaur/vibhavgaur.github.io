@@ -3,17 +3,17 @@
 
 <head>
 	<title>{% block title %}{% endblock %}</title>
-	<link rel="stylesheet" type="text/css" href="{{ SITEURL }}../theme/css/base.css"/>
-	<link rel="stylesheet" type="text/css" href="{{ SITEURL }}../theme/css/code.css"/>
+	<link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/code.css"/>
 	{% block customStyleSheets %}{% endblock %}
 </head>
 
 <body>
-	<h1 class="siteTitle"><a href="{{ SITEURL }}../index.html">{{ SITENAME }}</a></h1>
+	<h1 class="siteTitle"><a href="{{ SITEURL }}/index.html">{{ SITENAME }}</a></h1>
 
 	<ul class="NavBar">
 		{% for page in pages %}
-			<li><a href="../{{ page.url }}">{{ page.title }}</a></li>
+			<li><a href="/{{ page.url }}">{{ page.title }}</a></li>
 		{% endfor %}
 	</ul>
 
