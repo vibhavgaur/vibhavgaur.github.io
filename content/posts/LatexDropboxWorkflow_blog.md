@@ -1,7 +1,7 @@
 Title: Collaborate on a LaTeX document through a cloud service
 Date: 2021-05-21 16:02
 Modified: 2021-05-21 16:02
-Category: LaTex
+Category: Hax
 Tags: Productivity, LaTeX
 Slug: latex-dropbox-workflow
 Authors: Vibhav Gaur 
