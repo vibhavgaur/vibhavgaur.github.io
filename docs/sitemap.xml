@@ -4,217 +4,217 @@ xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitem
 xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
-<loc>/</loc>
-<lastmod>2021-06-23T18:44:56-00:00</lastmod>
+<loc>https://vibhavgaur.github.io/</loc>
+<lastmod>2021-06-23T18:47:08-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/tags.html</loc>
-<lastmod>2021-06-23T18:44:56-00:00</lastmod>
+<loc>https://vibhavgaur.github.io/tags.html</loc>
+<lastmod>2021-06-23T18:47:08-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/categories.html</loc>
-<lastmod>2021-06-23T18:44:56-00:00</lastmod>
+<loc>https://vibhavgaur.github.io/categories.html</loc>
+<lastmod>2021-06-23T18:47:08-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/authors.html</loc>
-<lastmod>2021-06-23T18:44:56-00:00</lastmod>
+<loc>https://vibhavgaur.github.io/authors.html</loc>
+<lastmod>2021-06-23T18:47:08-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/archives.html</loc>
-<lastmod>2021-06-23T18:44:56-00:00</lastmod>
+<loc>https://vibhavgaur.github.io/archives.html</loc>
+<lastmod>2021-06-23T18:47:08-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/pages/blog.html</loc>
-<lastmod>2021-06-23T18:44:56-00:00</lastmod>
+<loc>https://vibhavgaur.github.io/pages/blog.html</loc>
+<lastmod>2021-06-23T18:47:08-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/pages/coursework.html</loc>
-<lastmod>2021-06-23T18:44:56-00:00</lastmod>
+<loc>https://vibhavgaur.github.io/pages/coursework.html</loc>
+<lastmod>2021-06-23T18:47:08-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/pages/projects.html</loc>
-<lastmod>2021-06-23T18:44:56-00:00</lastmod>
+<loc>https://vibhavgaur.github.io/pages/projects.html</loc>
+<lastmod>2021-06-23T18:47:08-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/pages/resume.html</loc>
-<lastmod>2021-06-23T18:44:56-00:00</lastmod>
+<loc>https://vibhavgaur.github.io/pages/resume.html</loc>
+<lastmod>2021-06-23T18:47:08-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/overcast-dark-mode.html</loc>
+<loc>https://vibhavgaur.github.io/overcast-dark-mode.html</loc>
 <lastmod>2021-06-22T13:27:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/MNISTDecoder.html</loc>
+<loc>https://vibhavgaur.github.io/MNISTDecoder.html</loc>
 <lastmod>2021-06-16T23:16:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/building-this-website.html</loc>
+<loc>https://vibhavgaur.github.io/building-this-website.html</loc>
 <lastmod>2021-06-03T17:34:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/MCL.html</loc>
+<loc>https://vibhavgaur.github.io/MCL.html</loc>
 <lastmod>2021-05-27T23:04:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/optimal-controls-project.html</loc>
+<loc>https://vibhavgaur.github.io/optimal-controls-project.html</loc>
 <lastmod>2021-05-27T23:04:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/gourmet-chickpea-recipe.html</loc>
+<loc>https://vibhavgaur.github.io/gourmet-chickpea-recipe.html</loc>
 <lastmod>2021-05-21T16:02:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/latex-dropbox-workflow.html</loc>
+<loc>https://vibhavgaur.github.io/latex-dropbox-workflow.html</loc>
 <lastmod>2021-05-21T16:02:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/test-post.html</loc>
+<loc>https://vibhavgaur.github.io/test-post.html</loc>
 <lastmod>2021-05-21T16:02:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/category/cooking.html</loc>
+<loc>https://vibhavgaur.github.io/category/cooking.html</loc>
 <lastmod>2021-05-21T16:02:00-05:51</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/category/hax.html</loc>
+<loc>https://vibhavgaur.github.io/category/hax.html</loc>
 <lastmod>2021-06-22T13:27:00-05:51</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/category/projects.html</loc>
+<loc>https://vibhavgaur.github.io/category/projects.html</loc>
 <lastmod>2021-06-16T23:16:00-05:51</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/category/python.html</loc>
+<loc>https://vibhavgaur.github.io/category/python.html</loc>
 <lastmod>2021-05-21T16:02:00-05:51</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/tag/css.html</loc>
+<loc>https://vibhavgaur.github.io/tag/css.html</loc>
 <lastmod>2021-06-22T13:27:00-05:51</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/tag/dark-mode.html</loc>
+<loc>https://vibhavgaur.github.io/tag/dark-mode.html</loc>
 <lastmod>2021-06-22T13:27:00-05:51</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/tag/podcasts.html</loc>
+<loc>https://vibhavgaur.github.io/tag/podcasts.html</loc>
 <lastmod>2021-06-22T13:27:00-05:51</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/tag/cooking.html</loc>
+<loc>https://vibhavgaur.github.io/tag/cooking.html</loc>
 <lastmod>2021-05-21T16:02:00-05:51</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/tag/recipe.html</loc>
+<loc>https://vibhavgaur.github.io/tag/recipe.html</loc>
 <lastmod>2021-05-21T16:02:00-05:51</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/tag/chickpeas.html</loc>
+<loc>https://vibhavgaur.github.io/tag/chickpeas.html</loc>
 <lastmod>2021-05-21T16:02:00-05:51</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/tag/productivity.html</loc>
+<loc>https://vibhavgaur.github.io/tag/productivity.html</loc>
 <lastmod>2021-05-21T16:02:00-05:51</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/tag/latex.html</loc>
+<loc>https://vibhavgaur.github.io/tag/latex.html</loc>
 <lastmod>2021-05-21T16:02:00-05:51</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/tag/pelican.html</loc>
+<loc>https://vibhavgaur.github.io/tag/pelican.html</loc>
 <lastmod>2021-05-21T16:02:00-05:51</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
-<loc>/tag/publishing.html</loc>
+<loc>https://vibhavgaur.github.io/tag/publishing.html</loc>
 <lastmod>2021-05-21T16:02:00-05:51</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>

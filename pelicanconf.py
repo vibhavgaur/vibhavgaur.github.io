@@ -4,8 +4,8 @@
 SITENAME = 'Vibhav Gaur'
 
 ## ------------------------------URL Settings------------------------------ ##
-# SITEURL = 'https://vibhavgaur.github.io'
-SITEURL = ''    # Default
+SITEURL = 'https://vibhavgaur.github.io'
+# SITEURL = ''    # Default
 
 # Uncomment following line if you want document-relative URLs when developing
 # RELATIVE_URLS = True      # Default: False -- use relative URLs or not
