@@ -84,7 +84,9 @@ Here&#8217;s how this can be done in&nbsp;python: </p>
 <span class="normal">27</span>
 <span class="normal">28</span>
 <span class="normal">29</span>
-<span class="normal">30</span></pre></div></td><td class="code"><div class="codeBlock"><pre><span></span><code><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">images_file</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+<span class="normal">30</span>
+<span class="normal">31</span></pre></div></td><td class="code"><div class="codeBlock"><pre><span></span><code><span class="kn">import</span> <span class="nn">struct</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">images_file</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
 <span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
 
 <span class="c1"># decoding the header of the file -- these are all 32 bit integers coded in these bytes</span>

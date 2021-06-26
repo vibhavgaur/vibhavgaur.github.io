@@ -44,6 +44,7 @@ So after the first 15 bytes, the 16th byte onwards contains pixel data -- 1 pixe
 Here's how this can be done in python: 
 
 	#!python
+	import struct
 	f = open(images_file, 'rb')
 	images = []
 	

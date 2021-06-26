@@ -11,3 +11,11 @@ As such, this website is an active project.
 Parts of this site will be perpetually "under construction" as I get new ideas about what to do with it.
 I figured a good purpose for this website would be to host my blog and write-ups about some of the interesting projects that I've worked on.
 Hope you find it interesting!
+
+My interests are in:
+
+* Mathematics
+	* Linear algebra
+	* Dynamical systems
+	* Control theory
+	* Optimization

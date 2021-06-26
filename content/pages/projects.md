@@ -7,5 +7,6 @@ Slug: projects
 * Optimal Controls project
 * this website?
 * [Least squares -- solving over and under-determined linear systems](http://people.csail.mit.edu/bkph/articles/Pseudo_Inverse.pdf)
+* Singular Value Decomposition -- from Kutz book, and other topics from his book.
 
 ### Available posts
