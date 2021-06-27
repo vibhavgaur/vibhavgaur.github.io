@@ -92,7 +92,7 @@ Such a system cannot be easily solved using analytical methods which we have bee
 In fact, a solution may not even exist.
 Or many solutions may exist.
 Such a system can be solved using an iterative numerical procedure like [Newton-Raphson](https://en.wikipedia.org/wiki/Newton%27s_method).
-In general, fitting a function of $M (M < n)$ parameters $y = f(x, C_1, C_2, \dots, C_M)$ to the data will generate a system of nonlinear equations which will have to solved numerically.
+In general, fitting a function of $M (M < n)$ parameters $y = f(x, C_1, C_2, \dots, C_M)$ to the data will generate a system of nonlinear equations which will have to be solved numerically.
 
 ### References:
 *[Data-Driven Modeling and Scientific Computation: Methods for Complex Systems and Big Data](https://www.amazon.com/Data-Driven-Modeling-Scientific-Computation-Methods/dp/0199660344)* by [Nathan Kutz](http://faculty.washington.edu/kutz/)
