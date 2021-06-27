@@ -28,7 +28,7 @@ AUTHOR_SAVE_AS = ''       # Default: author/{slug}.html' -- set to '' so that th
 PATH = './content'
 # PAGE_PATHS = ['/pages']   # Default: ['pages']
 # ARTICLE_PATHS =           # Default: ['']
-# STATIC_PATHS =            # Default: ['images'] -- directory to look for static files
+STATIC_PATHS = ['images','documents'] # Default: ['images'] -- directory to look for static files
 THEME = './theme'
 OUTPUT_PATH = 'docs/'
 
