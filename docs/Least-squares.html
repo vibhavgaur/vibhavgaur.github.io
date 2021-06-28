@@ -61,7 +61,7 @@ This calls for some calculus, specifically, setting the derivative of <span clas
 $$</div>
 <p>This system of linear equations is easily solved by many available software packages like NumPy or <span class="caps">MATLAB</span>.</p>
 <p>A different type of curve can be fit just as easily by including the additional parameters in the resultant linear system.
-For example, to fit a second degree polynomial would go something like&nbsp;this:</p>
+For example, fitting a second degree polynomial would go something like&nbsp;this:</p>
 <div class="math">$$ y = f(x) = Ax^2 + Bx + C $$</div>
 <p>which has 3 parameters, <span class="math">\(A\)</span>, <span class="math">\(B\)</span>, and <span class="math">\(C\)</span>.
 This (quadratic) curve could be fit to the data using the same methods outlined above.
@@ -76,7 +76,7 @@ This is best described in the following&nbsp;picture:</p>
 <img src="../images/LeastSquares/LeastSquares_Intuition.png">
 </p>
 
-<p>When one minimizes the error (or some form of it) for a given data point <span class="math">\((x_k, y_k)\)</span>, marked on the above picture as <span class="math">\(|f(x_k) - y_k|\)</span>, one is actually parameterizing the line that overall has the least distance (along the <em>y</em>-direction) from <em>all</em> the data points (since the error is summed for all data points). 
+<p>When one minimizes the error (or some form of it) for a given data point <span class="math">\((x_k, y_k)\)</span>, marked on the above picture as <span class="math">\(|f(x_k) - y_k|\)</span>, one is actually parameterizing the line that overall has the least distance (along the <em>y</em>-direction, depending on how the error is defined) from <em>all</em> the data points (since the error is summed for all data points). 
 One may define the error as the perpendicular distance of the data points from the fit line, in which case the distance <em>p</em> would be minimized for each data point.
 One can take this intuition to higher dimensions where, in the linear fit case, one is fitting a plane (or hyperplane with appropriate dimensionality) to the data set.
 The definition of the error will determine which &#8220;distance&#8221; is being minimized.

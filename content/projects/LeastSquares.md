@@ -56,7 +56,7 @@ $$
 This system of linear equations is easily solved by many available software packages like NumPy or MATLAB.
 
 A different type of curve can be fit just as easily by including the additional parameters in the resultant linear system.
-For example, to fit a second degree polynomial would go something like this:
+For example, fitting a second degree polynomial would go something like this:
 
 $$ y = f(x) = Ax^2 + Bx + C $$
 
@@ -78,7 +78,7 @@ This is best described in the following picture:
 <img src="../images/LeastSquares/LeastSquares_Intuition.png">
 </p>
 
-When one minimizes the error (or some form of it) for a given data point $(x_k, y_k)$, marked on the above picture as $|f(x_k) - y_k|$, one is actually parameterizing the line that overall has the least distance (along the *y*-direction) from *all* the data points (since the error is summed for all data points). 
+When one minimizes the error (or some form of it) for a given data point $(x_k, y_k)$, marked on the above picture as $|f(x_k) - y_k|$, one is actually parameterizing the line that overall has the least distance (along the *y*-direction, depending on how the error is defined) from *all* the data points (since the error is summed for all data points). 
 One may define the error as the perpendicular distance of the data points from the fit line, in which case the distance *p* would be minimized for each data point.
 One can take this intuition to higher dimensions where, in the linear fit case, one is fitting a plane (or hyperplane with appropriate dimensionality) to the data set.
 The definition of the error will determine which "distance" is being minimized.

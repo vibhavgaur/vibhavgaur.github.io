@@ -26,7 +26,7 @@ There are decoded versions of the dataset available online, but where&#8217;s th
 A bunch of people have a bunch of different ways of doing this. 
 Michael Nielsen uses the <code>pickle</code> module from python to do this in his book <em><a href="http://neuralnetworksanddeeplearning.com/chap1.html#a_simple_network_to_classify_handwritten_digits">Neural Networks and Deep Learning</a></em>.
 That&#8217;s a pretty easy way to do things, but honestly, I didn&#8217;t (and still don&#8217;t) know what <code>pickle</code> does exactly, so that method is slightly opaque to me.
-I found a <a href="http://monkeythinkmonkeycode.com/">blog post</a> from a blog called <em>Monkey Think Monkey Code</em> that outlined a method that read the bytes directly from the uncompressed files, and that made a bit more sense to me.
+I found a blog post from a blog called <em><a href="http://monkeythinkmonkeycode.com/">Monkey Think Monkey Code</a></em> that outlined a method that read the bytes directly from the uncompressed files, and that made a bit more sense to me.
 So I decided to explain it my way, with a few modifications &#8212; here we&nbsp;go.</p>
 <p>The data is divided up into 4 files, which are listed at the top of the website for the&nbsp;dataset:</p>
 <ul>
