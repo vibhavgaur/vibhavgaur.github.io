@@ -10,10 +10,10 @@ Well, I don't have someone to directly teach to, so I shout it out into the void
 * Visual odometry on KITTI
 * Robot localization
 * Optimal Controls project
-* Ground Vehicle Systems project
 * Thesis project?
 * [Least squares -- solving over and under-determined linear systems](http://people.csail.mit.edu/bkph/articles/Pseudo_Inverse.pdf)
 * Singular Value Decomposition -- from Kutz book, and other topics from his book.
 	* Lagrange polynomials - section 3.2
+* Two and three body problems
 
 ### Available posts

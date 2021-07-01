@@ -86,7 +86,7 @@ DEFAULT_PAGINATION = False
 
 # For the website to be indexed on Google
 SITEMAP = {
-        "format": "xml",
+        "format": "txt",
 }
 
 ## ------------------------------Cache Settings------------------------------ ##
