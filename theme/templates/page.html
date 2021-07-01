@@ -16,7 +16,7 @@
 		{{ page.content}}
 		<ul>
 			{% for article in articles|get_article_by_type("ProjectDescription") %}
-			<li><span><a href="/{{ article.url }}">{{ article.title }}</a></span></li><br>
+			<li><span><a href="/{{ article.url }}">{{ article.title }}</a></span></li>
 			{% endfor %}
 		</ul>
 	{% else %}
