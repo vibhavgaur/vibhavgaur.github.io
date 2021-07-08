@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>Projects</title>
+	<title>Singular Value Decomposition - developing a visual&nbsp;intuition</title>
 	<link rel="stylesheet" type="text/css" href="https://vibhavgaur.github.io/theme/css/base.css"/>
 	<link rel="stylesheet" type="text/css" href="https://vibhavgaur.github.io/theme/css/code.css"/>
 </head>
@@ -17,30 +17,39 @@
 	</ul>
 
 		<div class="content">
-	<h2>Projects</h2>
-	
-		<p>This page contains a number of posts about projects that I have worked on. 
-Some posts are simply an explanation of mathematical or scientific concepts that I wanted to learn. 
-A very good way to learn things is to try an teach them to someone else. 
-Well, I don&#8217;t have someone to directly teach to, so I shout it out into the void by means of this&nbsp;website:</p>
-<h3>Posts (maybe) coming in the&nbsp;future</h3>
+	<h2>Singular Value Decomposition - developing a visual&nbsp;intuition</h2>
+	<label>Posted on <strong>July 01, 2021</strong></label>
+		
+	<p><strong>This post is in&nbsp;progress..</strong></p>
 <ul>
-<li>Visual odometry on <span class="caps">KITTI</span></li>
-<li>Robot&nbsp;localization</li>
-<li>Optimal Controls&nbsp;project</li>
-<li>Thesis&nbsp;project?</li>
-<li><a href="http://people.csail.mit.edu/bkph/articles/Pseudo_Inverse.pdf">Least squares &#8212; solving over and under-determined linear systems</a><ul>
-<li>Fredholm-Alternative Theorem &#8212;&gt; <span class="math">\(Ax=b\)</span> has a solution when <span class="math">\(b \dot y = 0\)</span>, where <span class="math">\(A^\*y =&nbsp;0\)</span></li>
+<li><a href="https://medium.com/jun-devpblog/linear-algebra-9-properties-of-orthogonal-matrices-840b1d28ac20">Properties of orthogonal&nbsp;matrices</a></li>
+<li><a href="https://conservancy.umn.edu/bitstream/handle/11299/1868/952.pdf?sequence=1&amp;isAllowed=y">history of <span class="caps">SVD</span></a></li>
 </ul>
-</li>
-<li>Topics from Kutz book<ul>
-<li>Singular Value&nbsp;Decomposition </li>
-<li>Lagrange polynomials - section&nbsp;3.2</li>
-</ul>
-</li>
-<li>Two and three body&nbsp;problems</li>
-</ul>
-<h3>Available&nbsp;posts</h3>
+<p>For the longest time, I could not figure out what the Singular Value Decomposition (<span class="caps">SVD</span>) of a matrix meant. 
+Sure, its a way to break up a matrix into a product of three different matrices; but the potential of linear algebra is largely wasted if one doesn&#8217;t develop a visual understanding of what is happening.
+So, what is happening with the <span class="caps">SVD</span> visually?
+To understand this, it is important to know what a matrix is doing, visually.
+The <strong>best</strong> resource to understand this is to watch <a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">3Blue1Brown&#8217;s series</a> on linear algebra.
+I&#8217;ll give a quick summary here, but if you really want to understand this stuff, you really should watch those&nbsp;videos.</p>
+<p>In essence, every matrix is a mapping of points to other points.
+We can represent points in abstract spaces by vectors &#8212; so a matrix can be thought of as a mapping from vectors to other vectors.
+This mapping, or <em>transformation</em> is applied through an operation called matrix multiplication, i.e., multiplying the matrix with the vector representation of the point (or simply the vector from now on).
+For example, the point <span class="math">\([1 \; 0]^T\)</span> is <em>transformed</em> (or <em>mapped</em>) to the point <span class="math">\([2 \; 0]^T\)</span> using the following matrix&nbsp;multiplication</p>
+<p>&lt;&lt; change this example to something that rotates and stretches&nbsp;&gt;&gt;</p>
+<div class="math">$$ \begin{bmatrix}
+    2 &amp; 0\\
+    0 &amp; 2
+   \end {bmatrix} \begin{bmatrix}
+            1\\
+            0
+              \end{bmatrix} = \begin{bmatrix}
+                    2\\
+                    0
+                  \end{bmatrix} $$</div>
+<p>Once you can start seeing matrices as transformations of a (appropriate dimensional) space, we can start to build our intuition on top of that.
+The eigenvectors of a matrix give us the directions which are unaffected by the rotation caused by the matrix&#8217;s transformation. 
+The corresponding eigenvalues give us the scaling factor for that given direction.
+In the same way, the singular values and singular vectors give us the direction and multiplier of the direction of biggest increase when the matrix transformation is&nbsp;applied.</p>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
@@ -103,16 +112,6 @@ Well, I don&#8217;t have someone to directly teach to, so I shout it out into th
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 </script>
-		<ul>
-			<li><span><a href="/svd.html">Singular Value Decomposition - developing a visual&nbsp;intuition</a></span></li>
-			<li><span><a href="/GVS-project.html">Steering controller for simulated driver in <span class="caps">ASM</span>&nbsp;(dSPACE)</a></span></li>
-			<li><span><a href="/Least-squares.html">Least-Squares&nbsp;fitting</a></span></li>
-			<li><span><a href="/MNISTDecoder.html">Decoding the <span class="caps">MNIST</span> data set&nbsp;images</a></span></li>
-			<li><span><a href="/webtodo.html">To-do list for the&nbsp;website</a></span></li>
-			<li><span><a href="/building-this-website.html">Building this&nbsp;website</a></span></li>
-			<li><span><a href="/MCL.html">Monte Carlo Localization of a Simulated&nbsp;Robot</a></span></li>
-			<li><span><a href="/optimal-controls-project.html">Optimal Orbit Transfer&nbsp;control</a></span></li>
-		</ul>
 		</div>
 
 		<footer>

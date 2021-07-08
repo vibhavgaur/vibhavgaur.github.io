@@ -12,7 +12,9 @@ Well, I don't have someone to directly teach to, so I shout it out into the void
 * Optimal Controls project
 * Thesis project?
 * [Least squares -- solving over and under-determined linear systems](http://people.csail.mit.edu/bkph/articles/Pseudo_Inverse.pdf)
-* Singular Value Decomposition -- from Kutz book, and other topics from his book.
+	* Fredholm-Alternative Theorem --> $Ax=b$ has a solution when $b \dot y = 0$, where $A^\*y = 0$
+* Topics from Kutz book
+	* Singular Value Decomposition 
 	* Lagrange polynomials - section 3.2
 * Two and three body problems
 

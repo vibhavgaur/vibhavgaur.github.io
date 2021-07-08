@@ -4,6 +4,8 @@ Modified: 2021-06-03 17:34
 Slug: building-this-website
 PageType: ProjectDescription
 
+**Incomplete post**
+
 I am writing this post to outline the journey I took to learn how to build a website.
 This is **not** a tutorial.
 This is simply *one* way that *one* guy on the internet built *one* website.
