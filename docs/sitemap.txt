@@ -20,10 +20,17 @@ https://vibhavgaur.github.io/webtodo.html
 https://vibhavgaur.github.io/building-this-website.html
 https://vibhavgaur.github.io/MCL.html
 https://vibhavgaur.github.io/optimal-controls-project.html
+https://vibhavgaur.github.io/senior-design.html
 https://vibhavgaur.github.io/category/hax.html
 https://vibhavgaur.github.io/category/projects.html
+https://vibhavgaur.github.io/category/teachnlearn.html
+https://vibhavgaur.github.io/tag/math.html
+https://vibhavgaur.github.io/tag/linear-algebra.html
 https://vibhavgaur.github.io/tag/productivity.html
 https://vibhavgaur.github.io/tag/latex.html
 https://vibhavgaur.github.io/tag/css.html
 https://vibhavgaur.github.io/tag/dark-mode.html
 https://vibhavgaur.github.io/tag/podcasts.html
+https://vibhavgaur.github.io/tag/mnist.html
+https://vibhavgaur.github.io/tag/deep-learning.html
+https://vibhavgaur.github.io/tag/machine-learning.html
