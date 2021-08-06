@@ -8,7 +8,7 @@ Authors: Vibhav Gaur
 Blurb: Learning about the Singular Value Decomposition by teaching it.
 PageType: BlogEntry
 
-**This post is in progress..**
+**This post is a work in progress..**
 
 * [Properties of orthogonal matrices](https://medium.com/jun-devpblog/linear-algebra-9-properties-of-orthogonal-matrices-840b1d28ac20)
 * [history of SVD](https://conservancy.umn.edu/bitstream/handle/11299/1868/952.pdf?sequence=1&isAllowed=y)
@@ -43,3 +43,4 @@ Once you can start seeing matrices as transformations of a (appropriate dimensio
 The eigenvectors of a matrix give us the directions which are unaffected by the rotation caused by the matrix's transformation. 
 The corresponding eigenvalues give us the scaling factor for that given direction.
 In the same way, the singular values and singular vectors give us the direction and multiplier of the direction of biggest increase when the matrix transformation is applied.
+

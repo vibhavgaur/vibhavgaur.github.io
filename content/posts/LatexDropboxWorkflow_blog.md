@@ -8,6 +8,8 @@ Authors: Vibhav Gaur
 Blurb: One way to remotely collaborate on a LaTeX document.
 PageType: BlogEntry
 
+**This post is a work in progress...**
+
 $\LaTeX$ is amazing. 
 But getting your project/lab group to show up to report writing sessions is not.
 And during 2020/21, they actually had an excuse to not show up!
