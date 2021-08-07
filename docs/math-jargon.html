@@ -20,14 +20,79 @@
 	<h2>A case for and against mathematical&nbsp;jargon</h2>
 	<label>Posted on <strong>August 05, 2021</strong></label>
 		
-	<p>I frequently find that the biggest obstacle between me and understanding a linear algebra concept is the jargon &#8212; some of it is fairly straightforward like <em>square</em>, <em>invertible</em>, etc. while some of it rather occludes the underlying meaning, such as <em>Hermitian</em>, <em>orthonormal basis</em>, and <em>positive semi-definite</em>. 
+	<p>I frequently find that the biggest obstacle between me and understanding a linear algebra concept is the jargon &#8212; some of it is fairly straightforward like <em>square</em>, <em>invertible</em>, etc. while some of it rather occludes the underlying meaning, such as <em>Hermitian</em> and <em>positive semi-definite</em>. 
+The struggle becomes real for me when multiple terms like these are used together, like <em>trace of the nilpotent Schur complement of <span class="math">\(A\)</span></em> (this series of words describes <em>some</em>thing, but I don&#8217;t think it actually means anything important; you see what I mean, though!?).
 I find that these terms usually have a straightforward meaning with regards to a property of the matrix in question, but I can&#8217;t for the life of me remember what the <em>cokernel</em> of a <em>skew-symmetric</em> matrix represents!
 This means that I always have to look this up and reason about an explanation for myself before I can actually understand the application of this word in a definition or a&nbsp;proof.</p>
-<p>Now, I can also make the case <em>for</em> using jargon &#8212; its a quick and efficient way for experts to transfer knowledge through text and/or speech.
-Undoubtedly, in many cases the expansiveness of the subject described (Linear Algebra being a fine example) requires this compression of ideas through jargon.
-I think what I&#8217;m really saying is I should suck it up and <a href="https://knowyourmeme.com/memes/git-gud"><strong>git g&#0252;d</strong></a> at linear&nbsp;algebra.</p>
+<p>That being said, there is a very strong case for using jargon &#8212; its a quick and efficient way for experts to transfer knowledge through text and/or speech.
+Undoubtedly, in many cases the expansiveness of the subject described (Linear Algebra being a fine example) requires this compression of ideas through&nbsp;jargon.</p>
+<p>I think my frustration is the same as that of someone who is learning a new language, but isn&#8217;t quite fluent in it yet.
+The very constructs of the language being learnt seem like hurdles in the way of learning it.
+What I&#8217;m really saying is I should suck it up and <a href="https://knowyourmeme.com/memes/git-gud"><strong>git g&#0252;d</strong></a>.</p>
 <p>I guess this is one of the reasons why math outreach is finding such popularity online right now &#8212; because once people cross the hill of jargon, they can truly start to understand the mathematics, which is the satisfing part in the first place.
 If you like that sort of thing, check out <a href="../svd.html">my blog post on the Singular Value Decomposition</a>.</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
 		</div>
 
 		<footer>
