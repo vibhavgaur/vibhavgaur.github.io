@@ -16,6 +16,6 @@ Well, I don't have someone to directly teach to, so I shout it out into the void
 * Topics from Kutz book
 	* Singular Value Decomposition 
 	* Lagrange polynomials - section 3.2
-* Two and three body problems
+* 3-D point reconstruction -- feature matching and tracking
 
 ### Available posts
