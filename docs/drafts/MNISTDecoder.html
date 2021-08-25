@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Decoding the <span class="caps">MNIST</span> data set&nbsp;images</title>
+	<link rel="stylesheet" type="text/css" href="https://vibhavgaur.github.io/theme/css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="https://vibhavgaur.github.io/theme/css/code.css"/>
+</head>
+
+<body>
+	<h1 class="siteTitle"><a href="https://vibhavgaur.github.io/index.html">Vibhav Gaur</a></h1>
+
+	<ul class="NavBar">
+	</ul>
+
+		<div class="content">
+	<h2>Decoding the <span class="caps">MNIST</span> data set&nbsp;images</h2>
+	<label>Posted on <strong>June 16, 2021</strong></label>
+		
+	<p>I have recently been trying to learn about neural networks by implementing a classifier for the <a href="http://yann.lecun.com/exdb/mnist/"><span class="caps">MNIST</span> data set</a>.
+One of the challenges that I faced to get started was to decode the data set.
+There are decoded versions of the dataset available online, but where&#8217;s the fun in that?
+A bunch of people have a bunch of different ways of doing this. 
+Michael Nielsen uses the <code>pickle</code> module from python to do this in his book <em><a href="http://neuralnetworksanddeeplearning.com/chap1.html#a_simple_network_to_classify_handwritten_digits">Neural Networks and Deep Learning</a></em>.
+That&#8217;s a pretty easy way to do things, but honestly, I didn&#8217;t (and still don&#8217;t) know what <code>pickle</code> does exactly, so that method is slightly opaque to me.
+I found a blog post from a blog called <em><a href="http://monkeythinkmonkeycode.com/">Monkey Think Monkey Code</a></em> that outlined a method that read the bytes directly from the uncompressed files, and that made a bit more sense to me.
+So I decided to explain it my way, with a few modifications &#8212; here we&nbsp;go.</p>
+<p>The data is divided up into 4 files, which are listed at the top of the website for the&nbsp;dataset:</p>
+<ul>
+<li>Training set images: <code>train-images-idx3-ubyte.gz</code><br/></li>
+<li>Training set labels: <code>train-label-idx1-ubyte.gz</code><br/></li>
+<li>Test set images: <code>t10k-images-idx3-ubyte.gz</code><br/></li>
+<li>Test set labels: <code>t10k-labels-idx3-ubyte.gz</code><br/></li>
+</ul>
+<p>The files are available from the website in compressed form (.gz), but these are easily unzipped on <span class="caps">UNIX</span> systems using <code>gunzip</code>.
+On Windows, the <code>Expand-Archive</code> powershell utility does not support .gz files (<em>big surprise!</em>).
+I have git bash installed, so I was still able to use <code>gunzip</code> through that (or, get the expanded versions from my <a href="https://github.com/vibhavgaur/NeuralNetworkPractice">GitHub</a> repo for this project in the &#8220;<code>MNISTData</code>&#8221; folder).
+These files are stored in a simple format directly in the form of the bytes that represent the image data and label data.
+They can be &#8220;decoded&#8221; by simply reading the bytes as a stream of information from the files.
+This can be done with any utility that lets you read a file in as a series of&nbsp;bytes.</p>
+<p>According to the description of the files on the website, the image files have a few things at the top (or beginning) of the bytestream before reaching the image pixel&nbsp;data.</p>
+<p align="center">
+<img src="../images/MNISTDecoder/MNIST_imageFiles.png">
+</p>
+
+<p>The first 4 bytes are a 32 bit <code>int</code> <span class="dquo">&#8220;</span>magic number&#8221;. 
+I&#8217;m not fully sure what a magic number is supposed to do, but it has a significance in computer science.
+The following 4 bytes are another 32 bit <code>int</code> which holds the number of images in the file (60,000 in this case).
+The next 4 bytes contain the number of rows, followed by another 4 bytes which contain the number of columns.
+These signify the size of the images.
+In the case of the <span class="caps">MNIST</span> data set, the images are <span class="math">\(28 \times 28\)</span> pixels.
+So after the first 15 bytes, the 16th byte onwards contains pixel data &#8212; 1 pixel value per byte as a grayscale intensity value between 0 and 255.
+Here&#8217;s how this can be done in&nbsp;python: </p>
+<table class="codeBlocktable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span></pre></div></td><td class="code"><div class="codeBlock"><pre><span></span><code><span class="kn">import</span> <span class="nn">struct</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">images_file</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+<span class="n">images</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># decoding the header of the file -- these are all 32 bit integers coded in these bytes</span>
+<span class="n">magicWord_32bit</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># read the first 4 bytes (8*4 = 32 bits) -- the magic word</span>
+<span class="n">n_images_32bit</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># number of images</span>
+<span class="n">n_rows_32bit</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>    <span class="c1"># number of rows in each image</span>
+<span class="n">n_cols_32bit</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>    <span class="c1"># number of columns in each image</span>
+
+<span class="c1"># convert to integers (subscript [0] because struct.unpack always returns a tuple)</span>
+<span class="n">magicWord</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;&gt;i&#39;</span><span class="p">,</span> <span class="n">magicWord_32bit</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">n_images</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;&gt;i&#39;</span><span class="p">,</span> <span class="n">n_images_32bit</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">n_rows</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;&gt;i&#39;</span><span class="p">,</span> <span class="n">n_rows_32bit</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">n_cols</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;&gt;i&#39;</span><span class="p">,</span> <span class="n">n_cols_32bit</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Read the entire file as a stream of bytes</span>
+<span class="c1"># The innermost for loop chops off the bytestream at the end of each column of the image</span>
+<span class="c1"># The middle for loop chops off the bytestream at the end of each row of the image</span>
+<span class="c1"># The outermost for loop chops off the bytestream at the end of each image</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_images</span><span class="p">):</span>
+        <span class="n">image</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_rows</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_cols</span><span class="p">):</span>
+                <span class="n">byte</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">pixel</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">byte</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">image</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pixel</span><span class="p">)</span>
+        <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+</td></tr></table>
+<p>The <code>images_file</code> variable contains the path to the unzipped file containing the training images (this can be switched out with the test images file to decode the test dataset).
+A similar strategy can be followed for the labels, with a slightly different header at the beginning of the&nbsp;bytestream.</p>
+<p align="center">
+<img src="../images/MNISTDecoder/MNIST_imageLabels.png">
+</p>
+
+<p>Note that for the label files, we have the first 4 bytes with the 32 bit <code>int</code> <span class="dquo">&#8220;</span>magic number&#8221;.
+In the next 4 bytes we have another 32 bit <code>int</code> that stores the number of items (in this case labels, 60,000 of them).
+Then, from the 8th byte onwards we have 1 label per byte, with label values going from 0 to 9.
+This can be read using the following code in&nbsp;python:</p>
+<table class="codeBlocktable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div class="codeBlock"><pre><span></span><code><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">labels_file</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">magicWord_32bit</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">n_labels_32bit</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="n">magicWord</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;&gt;i&#39;</span><span class="p">,</span> <span class="n">magicWord_32bit</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">n_labels</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;&gt;i&#39;</span><span class="p">,</span> <span class="n">n_labels_32bit</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">try</span><span class="p">:</span>
+<span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_labels</span><span class="p">):</span>
+    <span class="n">byte</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="n">byte</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div>
+</td></tr></table>
+<p>The above pieces of code can be put inside a function to make things cleaner, but essentially, the <code>images</code> and <code>labels</code> variables will contain the images and labels data respectively.
+If you are also practicing on the <span class="caps">MNIST</span> Dataset, you might be interested in <a href="https://github.com/vibhavgaur/NeuralNetworkPractice">my attempt</a>.
+Feel free to reach out to me using one of the options at the bottom of this page if you have&nbsp;questions.</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+		</div>
+
+		<footer>
+			<ul class="footer">
+				<li><a href="https://github.com/vibhavgaur">GitHub</a></li>
+				<li><a href="mailto:vibhavgaur@me.com">Email</a></li>
+				<li><a href="https://twitter.com/VibhavGaur">Twitter</a></li>
+				<li><a href="https://www.linkedin.com/in/vibhav-gaur-775815137/">LinkedIn</a></li>
+			</ul>
+		</footer> 
+</body>
+
+</html>

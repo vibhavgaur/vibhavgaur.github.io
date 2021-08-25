@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Singular Value Decomposition - developing a visual&nbsp;intuition</title>
+	<link rel="stylesheet" type="text/css" href="https://vibhavgaur.github.io/theme/css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="https://vibhavgaur.github.io/theme/css/code.css"/>
+</head>
+
+<body>
+	<h1 class="siteTitle"><a href="https://vibhavgaur.github.io/index.html">Vibhav Gaur</a></h1>
+
+	<ul class="NavBar">
+	</ul>
+
+		<div class="content">
+	<h2>Singular Value Decomposition - developing a visual&nbsp;intuition</h2>
+	<label>Posted on <strong>July 01, 2021</strong></label>
+		
+	<p><strong>This post is a work in&nbsp;progress..</strong></p>
+<ul>
+<li><a href="https://medium.com/jun-devpblog/linear-algebra-9-properties-of-orthogonal-matrices-840b1d28ac20">Properties of orthogonal&nbsp;matrices</a></li>
+<li><a href="https://conservancy.umn.edu/bitstream/handle/11299/1868/952.pdf?sequence=1&amp;isAllowed=y">history of <span class="caps">SVD</span></a></li>
+</ul>
+<p>For the longest time, I could not figure out what the Singular Value Decomposition (<span class="caps">SVD</span>) of a matrix meant. 
+Sure, its a way to break up a matrix into a product of three different matrices; but the potential of linear algebra is largely wasted if one doesn&#8217;t develop a visual understanding of what is happening.
+So, what is happening with the <span class="caps">SVD</span> visually?
+To understand this, it is important to know what a matrix is doing, visually.
+The <strong>best</strong> resource to understand this is to watch <a href="https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8hE_ab">3Blue1Brown&#8217;s series</a> on linear algebra.
+I&#8217;ll give a quick summary here, but if you really want to understand this stuff, you really should watch those&nbsp;videos.</p>
+<p>In essence, every matrix is a mapping of points to other points.
+We can represent points in abstract spaces by vectors &#8212; so a matrix can be thought of as a mapping from vectors to other vectors.
+This mapping, or <em>transformation</em> is applied through an operation called matrix multiplication, i.e., multiplying the matrix with the vector representation of the point (or simply the vector from now on).
+For example, the point <span class="math">\([1 \; 0]^T\)</span> is <em>transformed</em> (or <em>mapped</em>) to the point <span class="math">\([2 \; 0]^T\)</span> using the following matrix&nbsp;multiplication</p>
+<p>&lt;&lt; change this example to something that rotates and stretches&nbsp;&gt;&gt;</p>
+<div class="math">$$ \begin{bmatrix}
+    2 &amp; 0\\
+    0 &amp; 2
+   \end {bmatrix} \begin{bmatrix}
+            1\\
+            0
+              \end{bmatrix} = \begin{bmatrix}
+                    2\\
+                    0
+                  \end{bmatrix} $$</div>
+<p>Once you can start seeing matrices as transformations of a (appropriate dimensional) space, we can start to build our intuition on top of that.
+The eigenvectors of a matrix give us the directions which are unaffected by the rotation caused by the matrix&#8217;s transformation. 
+The corresponding eigenvalues give us the scaling factor for that given direction.
+In the same way, the singular values and singular vectors give us the direction and multiplier of the direction of biggest increase when the matrix transformation is&nbsp;applied.</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+		</div>
+
+		<footer>
+			<ul class="footer">
+				<li><a href="https://github.com/vibhavgaur">GitHub</a></li>
+				<li><a href="mailto:vibhavgaur@me.com">Email</a></li>
+				<li><a href="https://twitter.com/VibhavGaur">Twitter</a></li>
+				<li><a href="https://www.linkedin.com/in/vibhav-gaur-775815137/">LinkedIn</a></li>
+			</ul>
+		</footer> 
+</body>
+
+</html>

@@ -38,7 +38,7 @@ OUTPUT_PATH = 'docs/'
 
 ## -----------------------------Metadata Settings----------------------------- ##
 AUTHOR = 'Vibhav Gaur'
-# DEFAULT_METADATA =          # Default: {} -- default metadata used for all articles and pages
+DEFAULT_METADATA = {}        # Default: {} -- default metadata used for all articles and pages
 
 
 ## -----------------------------Plugins Settings----------------------------- ##

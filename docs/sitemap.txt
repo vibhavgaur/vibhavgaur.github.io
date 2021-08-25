@@ -10,8 +10,10 @@ https://vibhavgaur.github.io/archives.html
 https://vibhavgaur.github.io/pages/blog.html
 https://vibhavgaur.github.io/pages/coursework.html
 https://vibhavgaur.github.io/pages/projects.html
+https://vibhavgaur.github.io/over-under-determined.html
 https://vibhavgaur.github.io/math-jargon.html
 https://vibhavgaur.github.io/svd.html
+https://vibhavgaur.github.io/visodo.html
 https://vibhavgaur.github.io/GVS-project.html
 https://vibhavgaur.github.io/Least-squares.html
 https://vibhavgaur.github.io/latex-dropbox-workflow.html

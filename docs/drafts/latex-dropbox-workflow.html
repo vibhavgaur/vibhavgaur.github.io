@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Collaborate on a LaTeX document through a cloud storage service (like&nbsp;Dropbox)</title>
+	<link rel="stylesheet" type="text/css" href="https://vibhavgaur.github.io/theme/css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="https://vibhavgaur.github.io/theme/css/code.css"/>
+</head>
+
+<body>
+	<h1 class="siteTitle"><a href="https://vibhavgaur.github.io/index.html">Vibhav Gaur</a></h1>
+
+	<ul class="NavBar">
+	</ul>
+
+		<div class="content">
+	<h2>Collaborate on a LaTeX document through a cloud storage service (like&nbsp;Dropbox)</h2>
+	<label>Posted on <strong>June 24, 2021</strong></label>
+		
+	<p><strong>This post is a work in&nbsp;progress&#8230;</strong></p>
+<p><span class="math">\(\LaTeX\)</span> is amazing. 
+But getting your project/lab group to show up to report writing sessions is not.
+And during 2020/21, they actually had an excuse to not show up!
+So here is an easy way to collaborate with others on a document (say, a report). 
+Even if the document is filled with <span class="caps">BS</span>, it will at least look professional because its typeset in <span class="math">\(\LaTeX\)</span>.</p>
+<p>You will need a cloud storage service where you create the folder that holds all the relevant files. 
+All the group members should have access to this folder.
+I will use Dropbox as the cloud storage service in this post, but you can replace that with any other service (such as Google Drive, One Drive, iCloud (ew)) and everything should still make sense.
+I am assuming you know the basics of creating <span class="math">\(\LaTeX\)</span> documents.
+If you don&#8217;t, you may want to check out <a href="">a basic tutorial</a> before trying this&nbsp;out.</p>
+<p>Let&#8217;s say the <span class="math">\(\LaTeX\)</span> source for this document is <code>Doc.tex</code>.
+Let&#8217;s say you have two people working on this document &#8212; <strong>A</strong> and <strong>B</strong>.
+<strong>A</strong> is writing Section 1 and <strong>B</strong> is writing Section 2.
+You can set up a skeleton for your document by specifying all formatting instructions in <code>Doc.tex</code>.
+Now, in place of Section 1 and Section 2 in <code>Doc.tex</code>, you put the&nbsp;following:</p>
+<div class="codeBlock"><pre><span></span><code><span class="c">% Section 1 which is done by A</span>
+<span class="k">\include</span><span class="nb">{</span>A<span class="nb">_</span>Section1.tex<span class="nb">}</span>
+
+<span class="c">% Section 2 which is done by B</span>
+<span class="k">\include</span><span class="nb">{</span>B<span class="nb">_</span>Section2.tex<span class="nb">}</span>
+</code></pre></div>
+
+<p>where <code>A_Section1.tex</code> and <code>B_Section2.tex</code> are <code>.tex</code> files that contain the <span class="math">\(\LaTeX\)</span> markup for <strong>A</strong> and <strong>B</strong>&#8216;s sections respectively.
+This command is essentially putting the text in those files into <code>Doc.tex</code>.
+Typically, it is useful when one has large text sections and doesn&#8217;t want to scroll through a long document, one can put each large section in its own file and then use the <code>\inlcude{}</code> syntax to put that text in there.
+It might help to think of it as the <code>#define</code> directive in C/C++ &#8212; it is simply inputting the text in those files into the &#8220;parent&#8221; file.
+Now, both <strong>A</strong> and <strong>B</strong> can work on their respective sections simultaneously, while compiling the &#8220;parent&#8221; document.
+This allows both <strong>A</strong> and <strong>B</strong> to make changes in the Dropbox folder, recompile the document, and have it ready to be&nbsp;published/submitted.</p>
+<p>Static content such as images may be added in the document as usual.
+It is helpful to define subdirectories within the document&#8217;s directory to store the static content.
+Now, each author can create references to the static content in their section as usual.
+I have used this method in the past to work on group reports and projects with others and it has worked quite well.
+You don&#8217;t have to be a <span class="math">\(\LaTeX\)</span> expert to use this workflow.
+In fact, once you have a skeleton document that works for you, its simply a matter of using the same boilerplate markup and modifying it as&nbsp;required.</p>
+<ul>
+<li>intstructions for including images etc. &#8212; static content&nbsp;basically.</li>
+<li>one possible directory structure for a project like this could be <give example></li>
+</ul>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+		</div>
+
+		<footer>
+			<ul class="footer">
+				<li><a href="https://github.com/vibhavgaur">GitHub</a></li>
+				<li><a href="mailto:vibhavgaur@me.com">Email</a></li>
+				<li><a href="https://twitter.com/VibhavGaur">Twitter</a></li>
+				<li><a href="https://www.linkedin.com/in/vibhav-gaur-775815137/">LinkedIn</a></li>
+			</ul>
+		</footer> 
+</body>
+
+</html>
