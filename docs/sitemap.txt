@@ -10,6 +10,7 @@ https://vibhavgaur.github.io/archives.html
 https://vibhavgaur.github.io/pages/blog.html
 https://vibhavgaur.github.io/pages/coursework.html
 https://vibhavgaur.github.io/pages/projects.html
+https://vibhavgaur.github.io/visodo-1.html
 https://vibhavgaur.github.io/over-under-determined.html
 https://vibhavgaur.github.io/math-jargon.html
 https://vibhavgaur.github.io/svd.html
@@ -25,8 +26,10 @@ https://vibhavgaur.github.io/optimal-controls-project.html
 https://vibhavgaur.github.io/senior-design.html
 https://vibhavgaur.github.io/category/hax.html
 https://vibhavgaur.github.io/category/opinion.html
+https://vibhavgaur.github.io/category/posts.html
 https://vibhavgaur.github.io/category/projects.html
 https://vibhavgaur.github.io/category/teachnlearn.html
+https://vibhavgaur.github.io/tag/computer-vision.html
 https://vibhavgaur.github.io/tag/math.html
 https://vibhavgaur.github.io/tag/linear-algebra.html
 https://vibhavgaur.github.io/tag/productivity.html

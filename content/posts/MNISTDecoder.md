@@ -80,6 +80,7 @@ Here's how this can be done in python:
 	finally:
 	    f.close()
 
+
 The `images_file` variable contains the path to the unzipped file containing the training images (this can be switched out with the test images file to decode the test dataset).
 A similar strategy can be followed for the labels, with a slightly different header at the beginning of the bytestream.
 
