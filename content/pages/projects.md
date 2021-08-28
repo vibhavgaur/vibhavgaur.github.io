@@ -11,11 +11,10 @@ Well, I don't have someone to directly teach to, so I shout it out into the void
 * Robot localization
 * Optimal Controls project
 * Thesis project?
-* [Least squares -- solving over and under-determined linear systems](http://people.csail.mit.edu/bkph/articles/Pseudo_Inverse.pdf)
+* <strike>[Least squares -- solving over and under-determined linear systems](http://people.csail.mit.edu/bkph/articles/Pseudo_Inverse.pdf)</strike>
 	* Fredholm-Alternative Theorem --> $Ax=b$ has a solution when $b \dot y = 0$, where $A^\*y = 0$
 * Topics from Kutz book
-	* Singular Value Decomposition 
+	* <strike>Singular Value Decomposition</strike>
 	* Lagrange polynomials - section 3.2
-* 3-D point reconstruction -- feature matching and tracking
 
 ### Available posts

@@ -11,7 +11,6 @@ https://vibhavgaur.github.io/pages/blog.html
 https://vibhavgaur.github.io/pages/coursework.html
 https://vibhavgaur.github.io/pages/projects.html
 https://vibhavgaur.github.io/visodo-1.html
-https://vibhavgaur.github.io/over-under-determined.html
 https://vibhavgaur.github.io/math-jargon.html
 https://vibhavgaur.github.io/svd.html
 https://vibhavgaur.github.io/GVS-project.html
@@ -21,8 +20,6 @@ https://vibhavgaur.github.io/overcast-dark-mode.html
 https://vibhavgaur.github.io/MNISTDecoder.html
 https://vibhavgaur.github.io/webtodo.html
 https://vibhavgaur.github.io/building-this-website.html
-https://vibhavgaur.github.io/MCL.html
-https://vibhavgaur.github.io/optimal-controls-project.html
 https://vibhavgaur.github.io/senior-design.html
 https://vibhavgaur.github.io/category/hax.html
 https://vibhavgaur.github.io/category/opinion.html

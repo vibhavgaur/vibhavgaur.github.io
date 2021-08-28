@@ -7,7 +7,7 @@ Slug: over-under-determined
 Authors: Vibhav Gaur
 Blurb: Linear systems of equations
 PageType: BlogEntry
-<!--Status: draft-->
+Status: draft
 
 **This post is a work in progress...**
 
