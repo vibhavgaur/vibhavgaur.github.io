@@ -6,7 +6,7 @@
 body{
 	font-family: "Computer Modern", Garamond, serif;
 	color: black;
-	width: 60%;
+	width: 70%;
 	margin: 0 auto;
 	padding: 30px 0;
 	/*background-color: #856f49;*/
@@ -60,6 +60,9 @@ body hr{
 .content li, a, a:link{
 	color: black;
 	flex: 1 0 auto;
+}
+.content img{
+	width: 100%;
 }
 
 .footer{
