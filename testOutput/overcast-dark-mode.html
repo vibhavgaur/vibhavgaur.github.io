@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Simple dark mode for Overcast on&nbsp;desktop</title>
+	<link rel="stylesheet" type="text/css" href="/theme/css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="/theme/css/code.css"/>
+</head>
+
+<body>
+	<h1 class="siteTitle"><a href="/index.html">Vibhav Gaur</a></h1>
+
+	<ul class="NavBar">
+			<li><a href="/pages/blog.html">Blog</a></li>
+			<li><a href="/pages/coursework.html">Coursework</a></li>
+			<li><a href="/pages/projects.html">Projects</a></li>
+	</ul>
+
+		<div class="content">
+	<h2>Simple dark mode for Overcast on&nbsp;desktop</h2>
+	<label>Posted on <strong>June 22, 2021</strong></label>
+		
+	<p><a href="https://overcast.fm/">Overcast</a> is the best podcast app out there. It sucks for Android users because its only available on iPhone, iPad, and Apple watch. But it has a web interface which runs on any browser. Seriously, its great, so check it&nbsp;out. </p>
+<p>I like to have everything on my screen have a dark theme, I am not sure why everything doesn&#8217;t at least offer a dark theme. This is a quick post about how you can make the Overcast desktop website have a dark mode. Its a very simple <span class="caps">CSS</span> injection and I did it in Chrome, but it should be a fairly similar process for other browsers. You will need an extension for your browser that lets you inject some <span class="caps">CSS</span> or JavaScript when your browser loads a website &#8212; like <a href="https://github.com/Ruud14/Page-Manipulator">Page Manipulator</a> for Chrome. You can look up similar extensions for your&nbsp;browser.</p>
+<p>Once you have a way of injecting some <span class="caps">CSS</span> into a webpage, simply inject the following <span class="caps">CSS</span> when you load the Overcast&nbsp;website:</p>
+<table class="codeBlocktable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div class="codeBlock"><pre><span></span><code><span class="nt">body</span><span class="p">{</span>
+    <span class="k">color</span><span class="p">:</span> <span class="mh">#fc7e0f</span><span class="p">;</span>
+    <span class="k">background-color</span><span class="p">:</span> <span class="kc">black</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">episodecell</span><span class="p">{</span>
+    <span class="k">color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">feedcell</span><span class="p">{</span>
+    <span class="k">color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">userdeletedepisode</span><span class="p">{</span>
+    <span class="k">color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+<p>I just looked at the <span class="caps">HTML</span> for the Overcast website and made a note of the elements whose colors would need to be changed. The code above is simply changing the colors of the background to black and changing the text for all the important stuff to white &#8212; pick whatever colors you like, I like black and white. And I&#8217;ve used the same orange/pumpkin color for the headings in the body; looks pretty good imo. It would be good if <a href="https://twitter.com/marcoarment?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">Marco</a> offered this from the website itself, but its really easy to do so its not a big deal at&nbsp;all.</p>
+<p align = "center">
+    <img height=450 src="../images/OvercastDesktopDarkMode/OvercastDesktopDarkMode_Screenshot1.png">
+</p>
+<p align = "center">
+    <img height=700px src="../images/OvercastDesktopDarkMode/OvercastDesktopDarkMode_Screenshot2.png">
+</p>
+		</div>
+
+		<footer>
+			<ul class="footer">
+				<li><a href="https://github.com/vibhavgaur">GitHub</a></li>
+				<li><a href="mailto:vibhavgaur@me.com">Email</a></li>
+				<li><a href="https://twitter.com/VibhavGaur">Twitter</a></li>
+				<li><a href="https://www.linkedin.com/in/vibhav-gaur-775815137/">LinkedIn</a></li>
+			</ul>
+		</footer> 
+</body>
+
+</html>

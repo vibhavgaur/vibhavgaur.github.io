@@ -14,22 +14,23 @@ I like to have everything on my screen have a dark theme, I am not sure why ever
 
 Once you have a way of injecting some CSS into a webpage, simply inject the following CSS when you load the Overcast website:
 
-	:::CSS
+
+	#!CSS
 	body{
-	color: #fc7e0f;
-	background-color: black;
+		color: #fc7e0f;
+		background-color: black;
 	}
 
 	.episodecell{
-	color: white;
+		color: white;
 	}
 
 	.feedcell{
-	color: white;
+		color: white;
 	}
 
 	.userdeletedepisode{
-	color: white;
+		color: white;
 	}
 
 I just looked at the HTML for the Overcast website and made a note of the elements whose colors would need to be changed. The code above is simply changing the colors of the background to black and changing the text for all the important stuff to white -- pick whatever colors you like, I like black and white. And I've used the same orange/pumpkin color for the headings in the body; looks pretty good imo. It would be good if [Marco](https://twitter.com/marcoarment?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor) offered this from the website itself, but its really easy to do so its not a big deal at all.

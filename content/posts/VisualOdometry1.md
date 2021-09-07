@@ -7,6 +7,8 @@ Authors: Vibhav Gaur
 Blurb: Feature detection and matching.
 PageType: BlogEntry
 
+**This post is first in a series on Visual Odometry. Find part 2 [here](../visodo-2.html).**
+
 Your car's odometer works by counting the rotations of the wheels and multiplying by the circumference of the wheel/tyre.
 However, computer vision makes it possible to get similar measurements by just *looking* at the motion of the car.
 This is Visual Odometry (VO) -- odometry using vision.
@@ -156,7 +158,7 @@ Hmm, that doesn't look too promising.
 We have 383 matches from our 500 keypoints, but a lot of them are kinda far in terms of the Hamming distance. 
 This means that a lot of them are bad features.
 We will have to use a different method to find our matches.
-I'll look into that in my next post.
+I'll look into that in my [next post](../visodo-2.html).
 
 ### References
 

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Least squares applied to an overdetermined&nbsp;system</title>
+	<link rel="stylesheet" type="text/css" href="/theme/css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="/theme/css/code.css"/>
+</head>
+
+<body>
+	<h1 class="siteTitle"><a href="/index.html">Vibhav Gaur</a></h1>
+
+	<ul class="NavBar">
+			<li><a href="/pages/blog.html">Blog</a></li>
+			<li><a href="/pages/coursework.html">Coursework</a></li>
+			<li><a href="/pages/projects.html">Projects</a></li>
+	</ul>
+
+		<div class="content">
+	<h2>Least squares applied to an overdetermined&nbsp;system</h2>
+	<label>Posted on <strong>September 06, 2021</strong></label>
+		
+	<!--Status: draft-->
+
+<p><strong>This post is a work in&nbsp;progress&#8230;</strong></p>
+<p>An <a href="https://en.wikipedia.org/wiki/Overdetermined_system">overdetermined system</a> of equations is one where there are more equations than unknown variables.
+This type of system almost always has no solution, except for a couple of special cases.
+Let&#8217;s say wthat we have the following overdetermined system of linear&nbsp;equations</p>
+<div class="math">$$ 
+y = -2x - 1\\
+y = 3x - 2\\
+y = x + 1
+$$</div>
+<p>This system is overdetermined (or over-<em>constrained</em>) because we have 2 unknown variables &#8212; <span class="math">\(x\)</span> and <span class="math">\(y\)</span>, but we have 3 equations in <span class="math">\(x\)</span> and <span class="math">\(y\)</span>.
+This system can be rewritten in matrix form as follows (note that the bold <span class="math">\(\mathbf{x}\)</span> is a vector and is different from the light typeface <span class="math">\(x\)</span>, which is the independent variable in this system of&nbsp;equations):</p>
+<div class="math">$$ A \mathbf{x} = \mathbf{b}\\
+\text{where } A = \begin{bmatrix} 2 &amp; 1\\ -3 &amp; 1\\ -1 &amp; 1 \end{bmatrix} \text{, } \mathbf{b} = \begin{bmatrix} -1\\ -2\\ 1 \end{bmatrix} \text{, and }
+\mathbf{x} = \begin{bmatrix} x\\ y \end{bmatrix}
+$$</div>
+<p>Now, <span class="caps">MATLAB</span> gives us the least squares solution to this overdetermined system very easily using the&nbsp;following</p>
+<table class="codeBlocktable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="codeBlock"><pre><span></span><code><span class="n">A</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">;</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">;</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">];</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="o">-</span><span class="mi">2</span><span class="p">;</span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="n">A</span><span class="o">\</span><span class="n">b</span><span class="w"></span>
+</code></pre></div>
+</td></tr></table>
+<p><code>ans =</code> <br>
+<code>0.1316</code> <br>
+<code>0.5789</code></p>
+<p>Let&#8217;s take a visual <em>look</em> at what is going on here.
+If we plot the lines represented by the system of equations, this is what we&nbsp;get:</p>
+<p align="center">
+<img src="../images/OverdeterminedVisualized/SystemofEqns.png">
+</p>
+
+<p>The green dot in the middle represents the least squares solution.
+As is clear from the picture above, this system has no solution that satisfies all 3 equations simultaneously.
+The best we can do is get &#8220;close&#8221; to the lines in some sense &#8212; that manner of &#8220;closeness&#8221; is what decides where the least squares solution will end up.
+The manner of &#8220;closeness&#8221; is some kind of distance, and the generalized mathematical term for distance is a <strong>norm</strong>.
+As it turns out, the least squares solution to every overdetermined system will reduce to the minimization of a&nbsp;norm.</p>
+<p>By default, the norm that is used for least squares problem is the <span class="math">\(l^2\)</span>-norm, which, in common parlance is known as the length of a vector from the origin.
+The <span class="math">\(l^2\)</span>-norm of a vector <span class="math">\(x\)</span> is defined as&nbsp;follows:</p>
+<div class="math">$$ ||x|| = \sqrt{x_1^2 + x_2^2 + \dots + x_n^2} \text{, where } x = \begin{bmatrix}x_1\\ x_2\\ \vdots\\ x_n \end{bmatrix} $$</div>
+<p>The <span class="math">\(l^2\)</span>-norm that we want to minimize in the least squares problem is <span class="math">\(||A\mathbf{x}-\mathbf{b}||\)</span>.
+Let&#8217;s think about what that means.
+Writing <span class="math">\(A \mathbf{x} - \mathbf{b} = 0\)</span> is the same as writing each equation in the linear system in the form of <span class="math">\(ax + by + c = 0\)</span>.
+For any value of <span class="math">\(\mathbf{x} = [x',y']^T\)</span>, the expression <span class="math">\(A \mathbf{x} - \mathbf{b}\)</span> will be a vector.
+The contents of the vector will be how much <span class="math">\(c\)</span> would need to change by for each equation such that the point <span class="math">\((x', y')\)</span> satisfies each of the 3 lines.
+Let&#8217;s work it out for one of the lines and&nbsp;confirm:</p>
+<div class="math">$$ \text{Let } (x',y') = (0,0) \text{ and plug it into } y + 2x + 1 \implies (0) + 2 (0) + 1 = 1$$</div>
+<p>So, if we subtract 1 from the first equation, the point <span class="math">\((0,0)\)</span> would lie on the line described by the resulting equation.
+If we minimize this norm for the system, we are effectively finding <span class="math">\(\mathbf{x}\)</span> such that the entire system would have to be moved the least amount to be satisfied by the point <span class="math">\(\mathbf{x}\)</span>.</p>
+<p>I calculated the <span class="math">\(l^2\)</span>-norm for this system at a grid of points on the xy-plane and plotted the value of the norm on the z-axis.
+This is the surface that resulted.
+Full disclosure &#8212; I calculated the square of the norm, but minimizing the square of the norm is the same as minimizing the norm itself in this&nbsp;case.</p>
+<p align="center">
+<img src="../images/OverdeterminedVisualized/Surface3D.png">
+</p>
+
+<p>You can see the lines in the system on the xy-plane, along with the least squares solution.
+Though they are not very clear in this 3-D view, you may also be able to see the contour lines for this surface projected on the xy-plane.
+A keen eye might already see the connection between the norm surface and the least squares solution, but the relationship will be clear once we view this scene from the top&nbsp;down.</p>
+<p align="center">
+<img src="../images/OverdeterminedVisualized/Surface2D.png">
+</p>
+
+<p>The least squares solution is exactly the point that minimizes the norm.
+The lowest point of the norm is that very&nbsp;point!</p>
+<h3>Experiment with other systems and the code (requires <span class="caps">MATLAB</span>)</h3>
+<p>The following <span class="caps">MATLAB</span> code was used to make the plots shown&nbsp;above:</p>
+<table class="codeBlocktable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span></pre></div></td><td class="code"><div class="codeBlock"><pre><span></span><code><span class="n">A</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">;</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">;</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="o">-</span><span class="mi">2</span><span class="p">;</span><span class="mi">1</span><span class="p">]</span><span class="w"></span>
+
+<span class="c">% creating parametric equations for the lines in the system</span><span class="w"></span>
+<span class="n">fx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">@(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w"> </span><span class="n">fz</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">@(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="n">eq1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">@(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="mi">2</span><span class="o">.*</span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">eq2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">@(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="mi">3</span><span class="o">.*</span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">eq3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">@(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+
+<span class="c">% calculating the intersection points for each pair of lines in the system (for plotting later)</span><span class="w"></span>
+<span class="n">int12</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">,:)</span><span class="o">\</span><span class="n">b</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
+<span class="n">int13</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">,:);</span><span class="n">A</span><span class="p">(</span><span class="mi">3</span><span class="p">,:)]</span><span class="o">\</span><span class="p">[</span><span class="n">b</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="n">b</span><span class="p">(</span><span class="mi">3</span><span class="p">)];</span><span class="w"></span>
+<span class="n">int23</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">,:)</span><span class="o">\</span><span class="n">b</span><span class="p">(</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">);</span><span class="w"></span>
+<span class="n">intx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">int12</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="n">int23</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="n">int13</span><span class="p">(</span><span class="mi">1</span><span class="p">)];</span><span class="w"></span>
+<span class="n">inty</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">int12</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span><span class="n">int23</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span><span class="n">int13</span><span class="p">(</span><span class="mi">2</span><span class="p">)];</span><span class="w"></span>
+<span class="n">A</span><span class="o">\</span><span class="n">b</span><span class="w"> </span><span class="c">% least squares solution</span><span class="w"></span>
+
+<span class="c">% creating the xy grid and the norm function</span><span class="w"></span>
+<span class="p">[</span><span class="n">Xgrid</span><span class="p">,</span><span class="w"> </span><span class="n">Ygrid</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">meshgrid</span><span class="p">(</span><span class="nb">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">intx</span><span class="p">),</span><span class="w"> </span><span class="nb">max</span><span class="p">(</span><span class="n">intx</span><span class="p">),</span><span class="mi">50</span><span class="p">),</span><span class="w"> </span><span class="nb">linspace</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">inty</span><span class="p">),</span><span class="w"> </span><span class="nb">max</span><span class="p">(</span><span class="n">inty</span><span class="p">),</span><span class="mi">50</span><span class="p">));</span><span class="w"></span>
+<span class="n">dfun</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">@(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">((</span><span class="n">y</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">x</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">((</span><span class="n">y</span><span class="o">-</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.^</span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
+<span class="p">[</span><span class="n">cX</span><span class="p">,</span><span class="w"> </span><span class="n">cY</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">meshgrid</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">5</span><span class="p">:</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">4</span><span class="p">);</span><span class="w"></span>
+
+<span class="c">% Least squares solution</span><span class="w"></span>
+<span class="n">x0</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">0.1316</span><span class="p">;</span><span class="w"></span>
+<span class="n">y0</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">-</span><span class="mf">0.5789</span><span class="p">;</span><span class="w"></span>
+
+<span class="c">% remove a vectorization warning that MATLAB will give</span><span class="w"></span>
+<span class="nb">warning</span><span class="p">(</span><span class="s">&#39;off&#39;</span><span class="p">,</span><span class="s">&#39;MATLAB:fplot:NotVectorized&#39;</span><span class="p">);</span><span class="w"></span>
+
+<span class="c">% creating the plots</span><span class="w"></span>
+<span class="n">plotInterval</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span><span class="p">];</span><span class="w"></span>
+<span class="nb">figure</span><span class="p">;</span><span class="w"></span>
+<span class="n">sc</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">surfc</span><span class="p">(</span><span class="n">cX</span><span class="p">,</span><span class="w"> </span><span class="n">cY</span><span class="p">,</span><span class="w"> </span><span class="n">dfun</span><span class="p">(</span><span class="n">cX</span><span class="p">,</span><span class="n">cY</span><span class="p">));</span><span class="w">    </span><span class="c">% plot the surface</span><span class="w"></span>
+<span class="n">sc</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="n">LevelStep</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="n">sc</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="n">LineStyle</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;:&#39;</span><span class="p">;</span><span class="w"> </span><span class="c">% appearance properties for the surface</span><span class="w"></span>
+<span class="n">sc</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="n">FaceAlpha</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mf">0.5</span><span class="p">;</span><span class="w"> </span><span class="n">sc</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="n">LineStyle</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#39;none&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="n">hold</span><span class="w"> </span><span class="s">on</span><span class="p">;</span><span class="w"></span>
+<span class="n">e1</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">fplot3</span><span class="p">(</span><span class="n">fx</span><span class="p">,</span><span class="w"> </span><span class="n">eq1</span><span class="p">,</span><span class="w"> </span><span class="n">fz</span><span class="p">,</span><span class="w"> </span><span class="n">plotInterval</span><span class="p">,</span><span class="s">&#39;LineWidth&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span><span class="w">   </span><span class="c">% plot the lines</span><span class="w"></span>
+<span class="n">e2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">fplot3</span><span class="p">(</span><span class="n">fx</span><span class="p">,</span><span class="w"> </span><span class="n">eq2</span><span class="p">,</span><span class="w"> </span><span class="n">fz</span><span class="p">,</span><span class="w"> </span><span class="n">plotInterval</span><span class="p">,</span><span class="s">&#39;LineWidth&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
+<span class="n">e3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">fplot3</span><span class="p">(</span><span class="n">fx</span><span class="p">,</span><span class="w"> </span><span class="n">eq3</span><span class="p">,</span><span class="w"> </span><span class="n">fz</span><span class="p">,</span><span class="w"> </span><span class="n">plotInterval</span><span class="p">,</span><span class="s">&#39;LineWidth&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
+
+<span class="nb">plot</span><span class="p">([</span><span class="n">int12</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="n">int23</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="n">int13</span><span class="p">(</span><span class="mi">1</span><span class="p">)],[</span><span class="n">int12</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span><span class="n">int23</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span><span class="n">int13</span><span class="p">(</span><span class="mi">2</span><span class="p">)],</span><span class="s">&#39;o&#39;</span><span class="p">,</span><span class="s">&#39;MarkerSize&#39;</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="s">&#39;LineWidth&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span><span class="w">   </span><span class="c">% plot the intersection points</span><span class="w"></span>
+<span class="nb">plot</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span><span class="n">y0</span><span class="p">,</span><span class="s">&#39;o&#39;</span><span class="p">,</span><span class="s">&#39;MarkerSize&#39;</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="s">&#39;LineWidth&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span><span class="w">   </span><span class="c">% plot the least squares solution</span><span class="w"></span>
+<span class="c">% text(x0, y0, sprintf(&quot;Norm: %.4f\nSum of dist: %.4f&quot;,norm([x0;y0]),dfun(x0, y0)),&#39;Position&#39;,[x0 + 0.1 y0]); hold off; % label for point</span><span class="w"></span>
+<span class="nb">xlabel</span><span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">);</span><span class="w"> </span><span class="nb">ylabel</span><span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">);</span><span class="w"> </span><span class="nb">zlabel</span><span class="p">(</span><span class="s">&#39;z&#39;</span><span class="p">);</span><span class="w"></span>
+<span class="nb">legend</span><span class="p">([</span><span class="n">e1</span><span class="p">,</span><span class="w"> </span><span class="n">e2</span><span class="p">,</span><span class="w"> </span><span class="n">e3</span><span class="p">],</span><span class="s">&quot;$y=-2x-1$&quot;</span><span class="p">,</span><span class="s">&quot;$y=3x-2$&quot;</span><span class="p">,</span><span class="s">&quot;$y=x+1$&quot;</span><span class="p">,</span><span class="s">&#39;interpreter&#39;</span><span class="p">,</span><span class="s">&#39;latex&#39;</span><span class="p">,</span><span class="s">&#39;Location&#39;</span><span class="p">,</span><span class="s">&#39;bestoutside&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="nb">view</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="n">grid</span><span class="w"> </span><span class="s">on</span><span class="p">;</span><span class="w"></span>
+
+<span class="c">% turning the warning back on</span><span class="w"></span>
+<span class="nb">warning</span><span class="p">(</span><span class="s">&#39;on&#39;</span><span class="p">,</span><span class="s">&#39;MATLAB:fplot:NotVectorized&#39;</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+</td></tr></table>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+		</div>
+
+		<footer>
+			<ul class="footer">
+				<li><a href="https://github.com/vibhavgaur">GitHub</a></li>
+				<li><a href="mailto:vibhavgaur@me.com">Email</a></li>
+				<li><a href="https://twitter.com/VibhavGaur">Twitter</a></li>
+				<li><a href="https://www.linkedin.com/in/vibhav-gaur-775815137/">LinkedIn</a></li>
+			</ul>
+		</footer> 
+</body>
+
+</html>

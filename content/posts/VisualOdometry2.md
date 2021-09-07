@@ -154,7 +154,7 @@ Above, we can see the keypoints in both frames that best satisfy the epipolar co
 I'm gonna call it here for this post.
 This is where we should've been after the first post, but we're exploring here.
 In the next post we will talk about estimating the pose of the camera -- it will be math heavy.
-See you there.
+See you [there](../visodo-3.html).
 
 ### References
 

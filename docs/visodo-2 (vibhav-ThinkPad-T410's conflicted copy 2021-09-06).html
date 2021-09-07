@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Visual Odometry (Part&nbsp;2)</title>
+	<link rel="stylesheet" type="text/css" href="https://vibhavgaur.github.io/theme/css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="https://vibhavgaur.github.io/theme/css/code.css"/>
+</head>
+
+<body>
+	<h1 class="siteTitle"><a href="https://vibhavgaur.github.io/index.html">Vibhav Gaur</a></h1>
+
+	<ul class="NavBar">
+			<li><a href="/pages/blog.html">Blog</a></li>
+			<li><a href="/pages/coursework.html">Coursework</a></li>
+			<li><a href="/pages/projects.html">Projects</a></li>
+	</ul>
+
+		<div class="content">
+	<h2>Visual Odometry (Part&nbsp;2)</h2>
+	<label>Posted on <strong>August 29, 2021</strong></label>
+		
+	<p><strong>This post is second in a series on Visual Odometry. Find part 1 <a href="../visodo-1.html">here</a>.</strong></p>
+<p>Ok, the last time around we got stuck&nbsp;because:</p>
+<ul>
+<li>we were not detecting enough&nbsp;features</li>
+<li>the feature matches that we found were not&nbsp;great</li>
+</ul>
+<p>Shown below is where we were at &#8212; using the <span class="caps">ORB</span> detector&#8217;s default <code>detect</code> method did not lead to a lot of good features. 
+Additionally, the matches weren&#8217;t great with large Hamming distances in the &#8220;worse&#8221;&nbsp;matches.</p>
+<table class="codeBlocktable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="codeBlock"><pre><span></span><span class="n">detector</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">ORB_create</span><span class="p">()</span>
+<span class="n">kp1</span><span class="p">,</span> <span class="n">kp2</span> <span class="o">=</span> <span class="n">detector</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">frame1</span><span class="p">,</span> <span class="bp">None</span><span class="p">),</span> <span class="n">detector</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">frame2</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Number of keypoints: &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">kp1</span><span class="p">),</span><span class="s2">&quot; and &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">kp2</span><span class="p">))</span>
+<span class="c1"># kp1, des1 = detector.compute(frame1, kp1)</span>
+<span class="c1"># kp2, des2 = detector.compute(frame2, kp2)</span>
+<span class="c1"># print(&quot;Descriptors: &quot;, des1.shape, des2.shape)</span>
+
+<span class="n">frame1_kp</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">drawKeypoints</span><span class="p">(</span><span class="n">frame1</span><span class="p">,</span> <span class="n">kp1</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">frame2_kp</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">drawKeypoints</span><span class="p">(</span><span class="n">frame2</span><span class="p">,</span> <span class="n">kp2</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">showImages</span><span class="p">(</span><span class="n">frame1_kp</span><span class="p">,</span> <span class="n">frame2_kp</span><span class="p">)</span>
+</pre></div>
+</td></tr></table>
+
+<p><code>Number of keypoints:  500  and  500</code>  </p>
+<p align="center">
+<img src="../images/VisOdo2/output_5_1.png">
+</p>
+
+<h3>Feature (re-)&nbsp;detection</h3>
+<p>Another way to get features is to first find nice corners in the frame and then using <span class="caps">ORB</span> to figure out descriptors for those specific corners. 
+If we can choose nice robust corner features, it will be easier to track them between frames. 
+Thankfully, openCV has a function for this - <code>goodFeaturesToTrack</code>.</p>
+<p>Below, we first find the good features from both frames and convert them the to <code>KeyPoint</code> type to work with other openCV functions.
+The results are good!
+We have 3000 corners with the same corners being detected in both frames, so we can be hopeful for the feature matching&nbsp;step.</p>
+<table class="codeBlocktable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="codeBlock"><pre><span></span><span class="n">goodFeats1</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">goodFeaturesToTrack</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">frame1</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span> <span class="n">maxCorners</span> <span class="o">=</span> <span class="mi">3000</span><span class="p">,</span> <span class="n">qualityLevel</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">minDistance</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">goodFeats2</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">goodFeaturesToTrack</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">frame2</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">),</span> <span class="n">maxCorners</span> <span class="o">=</span> <span class="mi">3000</span><span class="p">,</span> <span class="n">qualityLevel</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span> <span class="n">minDistance</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="c1"># convert corners to keypoint type</span>
+<span class="n">kp1</span> <span class="o">=</span> <span class="p">[</span><span class="n">cv2</span><span class="o">.</span><span class="n">KeyPoint</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">goodFeats1</span><span class="p">]</span>
+<span class="n">kp2</span> <span class="o">=</span> <span class="p">[</span><span class="n">cv2</span><span class="o">.</span><span class="n">KeyPoint</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">goodFeats2</span><span class="p">]</span>
+
+<span class="n">frame1_gkp</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">drawKeypoints</span><span class="p">(</span><span class="n">frame1</span><span class="p">,</span> <span class="n">kp1</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">frame2_gkp</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">drawKeypoints</span><span class="p">(</span><span class="n">frame2</span><span class="p">,</span> <span class="n">kp2</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">showImages</span><span class="p">(</span><span class="n">frame1_gkp</span><span class="p">,</span> <span class="n">frame2_gkp</span><span class="p">)</span>
+</pre></div>
+</td></tr></table>
+
+<p align="center">
+<img src="../images/VisOdo2/output_8_0.png">
+</p>
+
+<h3>Feature (re-)&nbsp;matching</h3>
+<p>We can now compute <span class="caps">ORB</span> descriptors here (remember that <code>detector</code> is an <span class="caps">ORB</span> object).
+Then, we can use the brute-force matcher to find matches between the two frames, however this time we will use the k-nearest neighbors algorithm.
+The default <code>match()</code> method of the <code>BFMatcher</code> object returns the best match, while the <code>knnMatch()</code> method returns the <em>k</em> best matches.
+This will be useful to do some processing to distinguish good matches from bad ones using <a href="https://stackoverflow.com/a/60343973/3186279">Lowe&#8217;s ratio test</a>.</p>
+<table class="codeBlocktable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="codeBlock"><pre><span></span><span class="c1"># computing descriptors</span>
+<span class="n">kp1</span><span class="p">,</span> <span class="n">des1</span> <span class="o">=</span> <span class="n">detector</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">frame1</span><span class="p">,</span> <span class="n">kp1</span><span class="p">)</span>
+<span class="n">kp2</span><span class="p">,</span> <span class="n">des2</span> <span class="o">=</span> <span class="n">detector</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">frame2</span><span class="p">,</span> <span class="n">kp2</span><span class="p">)</span>
+<span class="c1"># finding knn matches</span>
+<span class="n">matcher</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">BFMatcher</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">NORM_HAMMING</span><span class="p">)</span><span class="c1">#, crossCheck = True)</span>
+<span class="n">matches</span> <span class="o">=</span> <span class="n">matcher</span><span class="o">.</span><span class="n">knnMatch</span><span class="p">(</span><span class="n">des1</span><span class="p">,</span> <span class="n">des2</span><span class="p">,</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1"># applying ratio test</span>
+<span class="n">goodMatches</span> <span class="o">=</span> <span class="p">[</span><span class="n">m</span> <span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">matches</span> <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">distance</span> <span class="o">&lt;</span> <span class="mf">0.75</span><span class="o">*</span><span class="n">n</span><span class="o">.</span><span class="n">distance</span><span class="p">]</span>
+<span class="c1"># print(goodMatches)</span>
+
+<span class="n">framesMatched</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">drawMatchesKnn</span><span class="p">(</span><span class="n">frame1</span><span class="p">,</span> <span class="n">kp1</span><span class="p">,</span> <span class="n">frame2</span><span class="p">,</span> <span class="n">kp2</span><span class="p">,</span> <span class="p">[</span><span class="n">goodMatches</span><span class="p">[:</span><span class="mi">10</span><span class="p">]],</span> <span class="bp">None</span><span class="p">,</span> <span class="n">flags</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span><span class="mi">16</span><span class="p">]),</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Good matches&quot;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">framesMatched</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</td></tr></table>
+
+<p align="center">
+<img src="../images/VisOdo2/output_10_0.png">
+</p>
+
+<p>Displaying the first 10 matches, we can see they look pretty good.
+Even the bad matches look pretty&nbsp;good!</p>
+<table class="codeBlocktable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="codeBlock"><pre><span></span><span class="n">framesBadMatches</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">drawMatchesKnn</span><span class="p">(</span><span class="n">frame1</span><span class="p">,</span> <span class="n">kp1</span><span class="p">,</span> <span class="n">frame2</span><span class="p">,</span> <span class="n">kp2</span><span class="p">,</span> <span class="p">[</span><span class="n">goodMatches</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:]],</span> <span class="bp">None</span><span class="p">,</span> <span class="n">flags</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span><span class="mi">16</span><span class="p">]),</span> <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Bad matches&quot;</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">framesBadMatches</span><span class="p">),</span> <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</pre></div>
+</td></tr></table>
+
+<p align="center">
+<img src="../images/VisOdo2/output_12_0.png">
+</p>
+
+<p>These matches will still be pretty noise if I were to detect them across all frames in the video, so we need to somehow enforce the perspective projection/projective geometry model on them.
+This can be done by using the Fundamental&nbsp;Matrix.</p>
+<h4>Filtering bad matches using the Fundamental&nbsp;Matrix</h4>
+<p>The <strong><a href="https://en.wikipedia.org/wiki/Fundamental_matrix_(computer_vision)">fundamental matrix</a></strong> <span class="math">\(F\)</span> is a matrix that maps points in one image to their matches in the other image (I&#8217;m not fully sure, but this is typically done in a stereo setting &#8212; however a single moving camera is approximately a stereo camera that is not moving, as long as the frame rate is high enough compared to the camera motion).
+Ok, technically it doesn&#8217;t match points to points, but points to their respective epipolar lines.
+Due to the <a href="https://en.wikipedia.org/wiki/Epipolar_geometry#Epipolar_constraint_and_triangulation">epipolar constraint</a>, it is guaranteed that a point in one image plane will have its match in the other (stereo) image frame on a line (called the epipolar line).
+This is really cool, because now when we search for a match, we just need to search a line in the image instead of the whole 2-D image.
+This constraint restricts our search space by a lot!
+Here, we will use this fact in a reverse way.
+We already have the matches, thanks to our brute-force matcher &#8212; albeit not all of them are high quality as we saw above.
+And we know that the matches must satisfy the epipolar constraint, which is basically saying that they must follow the mapping (or transformation) of the fundamental matrix.
+Now, we can tell by looking at each match if it is a good quality match or not, but this constraint gives us a quantitative way of deciding whether a match is a good match or not.
+So, the points that don&#8217;t obey this fundamental matrix transform (or mapping) are bad&nbsp;matches.</p>
+<p>There is an algorithm that fits the best model with specified structure to noisy data, called <a href="https://en.wikipedia.org/wiki/Random_sample_consensus"><span class="caps">RANSAC</span></a>, which can help us check which mapping satisfies most of our data.
+We will use this to filter out bad&nbsp;matches.</p>
+<table class="codeBlocktable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="codeBlock"><pre><span></span><span class="n">ransacData</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([(</span><span class="n">kp1</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">queryIdx</span><span class="p">]</span><span class="o">.</span><span class="n">pt</span><span class="p">,</span> <span class="n">kp2</span><span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">trainIdx</span><span class="p">]</span><span class="o">.</span><span class="n">pt</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">goodMatches</span><span class="p">])</span>
+<span class="n">model</span><span class="p">,</span> <span class="n">inliers</span> <span class="o">=</span> <span class="n">ransac</span><span class="p">((</span><span class="n">ransacData</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">ransacData</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]),</span> <span class="n">FundamentalMatrixTransform</span><span class="p">,</span> <span class="n">min_samples</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">residual_threshold</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">max_trials</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Fundamental Matrix:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</td></tr></table>
+
+<p><code>Fundamental Matrix:</code><br>
+<code>[[ 3.64257554e-09  6.53331526e-06 -3.25147208e-03]</code><br>
+<code>[-6.53220141e-06 -1.25524925e-08  6.15791865e-03]</code><br>
+<code>[ 3.24476011e-03 -6.12805433e-03 -9.17567059e-03]]</code>  </p>
+<table class="codeBlocktable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="codeBlock"><pre><span></span><span class="n">kp1</span> <span class="o">=</span> <span class="p">[</span><span class="n">cv2</span><span class="o">.</span><span class="n">KeyPoint</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">ransacData</span><span class="p">[</span><span class="n">inliers</span><span class="p">]]</span>
+<span class="n">kp2</span> <span class="o">=</span> <span class="p">[</span><span class="n">cv2</span><span class="o">.</span><span class="n">KeyPoint</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span> <span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">ransacData</span><span class="p">[</span><span class="n">inliers</span><span class="p">]]</span>
+
+<span class="n">frame1_gkp</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">drawKeypoints</span><span class="p">(</span><span class="n">frame1</span><span class="p">,</span> <span class="n">kp1</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">frame2_gkp</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">drawKeypoints</span><span class="p">(</span><span class="n">frame2</span><span class="p">,</span> <span class="n">kp2</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">flags</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">showImages</span><span class="p">(</span><span class="n">frame1_gkp</span><span class="p">,</span> <span class="n">frame2_gkp</span><span class="p">)</span>
+</pre></div>
+</td></tr></table>
+
+<p align="center">
+<img src="../images/VisOdo2/output_15_0.png">
+</p>
+
+<p>Above, we can see the keypoints in both frames that best satisfy the epipolar constraint as enforced by the fundamental&nbsp;matrix.</p>
+<p>I&#8217;m gonna call it here for this post.
+This is where we should&#8217;ve been after the first post, but we&#8217;re exploring here.
+In the next post we will talk about estimating the pose of the camera &#8212; it will be math heavy.
+See you&nbsp;there.</p>
+<h3>References</h3>
+<ul>
+<li><a href="https://www.youtube.com/channel/UCf0WB91t8Ky6AuYcQV0CcLw">First Principles of Computer Vision</a> YouTube&nbsp;channel</li>
+<li><a href="https://github.com/geohot/twitchslam">twitchslam</a> by George&nbsp;Hotz</li>
+<li><a href="https://www.youtube.com/playlist?list=PLrHDCRerOaI9HfgZDbiEncG5dx7S3Nz6X"><span class="caps">KITTI</span> Odometry with OpenCV Python</a> by Nate&nbsp;Cibik</li>
+<li>Visual Odometry by David Scaramuzza and Friedrich&nbsp;Fraundorfer</li>
+</ul>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+		</div>
+
+		<footer>
+			<ul class="footer">
+				<li><a href="https://github.com/vibhavgaur">GitHub</a></li>
+				<li><a href="mailto:vibhavgaur@me.com">Email</a></li>
+				<li><a href="https://twitter.com/VibhavGaur">Twitter</a></li>
+				<li><a href="https://www.linkedin.com/in/vibhav-gaur-775815137/">LinkedIn</a></li>
+			</ul>
+		</footer> 
+</body>
+
+</html>

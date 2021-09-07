@@ -7,6 +7,7 @@ Slug: svd
 Authors: Vibhav Gaur
 Blurb: Learning about the Singular Value Decomposition by teaching it.
 PageType: BlogEntry
+Status: draft
 
 **This post is a work in progress..**
 

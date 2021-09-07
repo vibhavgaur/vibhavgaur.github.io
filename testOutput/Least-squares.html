@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Least-Squares&nbsp;fitting</title>
+	<link rel="stylesheet" type="text/css" href="/theme/css/base.css"/>
+	<link rel="stylesheet" type="text/css" href="/theme/css/code.css"/>
+</head>
+
+<body>
+	<h1 class="siteTitle"><a href="/index.html">Vibhav Gaur</a></h1>
+
+	<ul class="NavBar">
+			<li><a href="/pages/blog.html">Blog</a></li>
+			<li><a href="/pages/coursework.html">Coursework</a></li>
+			<li><a href="/pages/projects.html">Projects</a></li>
+	</ul>
+
+		<div class="content">
+	<h2>Least-Squares&nbsp;fitting</h2>
+	<label>Posted on <strong>June 26, 2021</strong></label>
+		
+	<p>The method of Least-Squares is an intuitive mathematical approach to fitting a curve (or surface, or hypersurface) to a set of data. 
+For a 1-dimensional data set, each data point has an <span class="math">\(x\)</span> coordinate and a <span class="math">\(y\)</span> coordinate &#8212; since we need one additional dimension to visualize the output, but this can be expanded to as many dimensions as needed.
+So, an example data set can&nbsp;be
+</p>
+<div class="math">$$ (x_1, y_1), (x_2, y_2), \dots, (x_n, y_n) $$</div>
+<h3>Linear least&nbsp;squares</h3>
+<p>If we wanted to fit a line through the above data, we would effectively be saying that we want to approximate the data set by the&nbsp;function</p>
+<div class="math">$$ y = f(x) = Ax + B $$</div>
+<p>where the &#8220;fitting&#8221; process is the process of finding <span class="math">\(A\)</span> and <span class="math">\(B\)</span> given some constraint &#8212; in this case some kind of error minimization constraint.
+This error constraint can be defined in a variety of ways, for&nbsp;example:</p>
+<ul>
+<li>Average error: <span class="math">\(E_{avg}(f) = \frac{1}{n} \sum_{k=1}^n |f(x_k) - y_k|\)</span>. This is just averaging the errors between each prediction and corresponding data&nbsp;point.</li>
+<li>Root-mean-square error: <span class="math">\(E_{rms}(f) = \sqrt{ \frac{1}{n} \sum_{k=1}^n |f(x_k) - y_k|^2}\)</span>. Anytime there is a root-mean-square value anywhere, its calculated by performing those operations in the reverse order.
+Take the error, square it, calculate its mean, and then square root it &#8212; voila, the <em>root-mean-square</em> value of the error.
+This is the most popular constraint on the error used in practice.
+For reasons that will be clear shortly ahead, using simply the mean-square error is also popular in practice and will be used for the following&nbsp;discussion.</li>
+</ul>
+<p>As mentioned previously, &#8220;fitting&#8221; means finding the parameters <span class="math">\(A\)</span> and <span class="math">\(B\)</span> of the &#8220;curve&#8221; (in this case a line) such that <span class="math">\(E_{rms}\)</span> is minimized.
+This calls for some calculus, specifically, setting the derivative of <span class="math">\(E_{rms}\)</span> to <span class="math">\(0\)</span> with respect to the parameters <span class="math">\(A\)</span> and <span class="math">\(B\)</span>.</p>
+<div class="math">$$ \frac{\partial{E_{rms}}}{\partial A} = 0 \text{ and } \frac{\partial E_{rms}}{\partial B} = 0 $$</div>
+<p>Minimizing <span class="math">\(E_{rms} = \sqrt{ \frac{1}{n} \sum_{k=1}^n |f(x_k) - y_k|^2}\)</span> is the same as minimizing the square of this quantity, so we&nbsp;write</p>
+<div class="math">$$ E_{rms} = \sum_{k=1}^{n} |f(x_k) - y_k|^2 = \sum_{k=1}^{n} (Ax_k + B - y_k)^2 $$</div>
+<p>To minimize this with respect to <span class="math">\(A\)</span> and <span class="math">\(B\)</span> we calculated the partial derivatives and set them to <span class="math">\(0\)</span>:</p>
+<div class="math">\begin{align}
+\frac{\partial E_{rms}}{\partial A} = \sum_{k=1}^{n} 2(Ax_k + B - y_k) x_k = 0  \\
+\frac{\partial E_{rms}}{\partial B} = \sum_{k=1}^{n} 2(Ax_k + B - y_k) = 0
+\end{align}</div>
+<p>The above is a linear system of equations in <span class="math">\(A\)</span> and <span class="math">\(B\)</span>:</p>
+<div class="math">$$ \begin{bmatrix}
+    \sum_{k=1}^{n} x_k^2 &amp; \sum_{k=1}^{n} x_k \\
+    \sum_{k=1}^{n} x_k   &amp; \sum_{k=1}^{n}
+   \end{bmatrix} \begin{bmatrix}
+            A \\
+            B
+         \end{bmatrix} = \begin{bmatrix}
+                    \sum_{k=1}^{n} x_k y_k \\
+                    \sum_{k=1}^{n} y_k
+                \end{bmatrix}
+$$</div>
+<p>This system of linear equations is easily solved by many available software packages like NumPy or <span class="caps">MATLAB</span>.</p>
+<p>A different type of curve can be fit just as easily by including the additional parameters in the resultant linear system.
+For example, fitting a second degree polynomial would go something like&nbsp;this:</p>
+<div class="math">$$ y = f(x) = Ax^2 + Bx + C $$</div>
+<p>which has 3 parameters, <span class="math">\(A\)</span>, <span class="math">\(B\)</span>, and <span class="math">\(C\)</span>.
+This (quadratic) curve could be fit to the data using the same methods outlined above.
+This would result in a linear system of equations generated by setting the partial derivatives to <span class="math">\(0\)</span></p>
+<div class="math">$$ \frac{\partial E_{rms}}{\partial A} = 0 \text{, } \frac{\partial E_{rms}}{\partial B} = 0 \text{, } \frac{\partial E_{rms}}{\partial C} = 0 $$</div>
+<h4>Spatial inuition for a least squares&nbsp;fit</h4>
+<p>To develop some spatial intuition about least squares fitting, consider the 1-dimensional data case where the data is given&nbsp;by</p>
+<div class="math">$$ (x_1, y_1), (x_2, y_2), \dots, (x_n, y_n) $$</div>
+<p>Let&#8217;s consider what is going when when we minimize the <span class="caps">RMS</span> error for this data set by considering just one data point.
+This is best described in the following&nbsp;picture:</p>
+<p align="center">
+<img src="../images/LeastSquares/LeastSquares_Intuition.png">
+</p>
+
+<p>When one minimizes the error (or some form of it) for a given data point <span class="math">\((x_k, y_k)\)</span>, marked on the above picture as <span class="math">\(|f(x_k) - y_k|\)</span>, one is actually parameterizing the line that overall has the least distance (along the <em>y</em>-direction, depending on how the error is defined) from <em>all</em> the data points (since the error is summed for all data points). 
+One may define the error as the perpendicular distance of the data points from the fit line, in which case the distance <em>p</em> would be minimized for each data point.
+One can take this intuition to higher dimensions where, in the linear fit case, one is fitting a plane (or hyperplane with appropriate dimensionality) to the data set.
+The definition of the error will determine which &#8220;distance&#8221; is being minimized.
+In nonlinear fitting, the curve being fit generalizes to a hypersurface of appropriate&nbsp;dimensionality.</p>
+<h3>Nonlinear least&nbsp;squares</h3>
+<p>The system of equations generated by the minimization problem above is not always a linear system.
+If the function (curve) used to fit the data is a nonlinear function of the paramters, then it is likely going to result in a nonlinear set of equations.
+If you don&#8217;t believe me, then try to get the system of equations formed when one tries to fit the function <span class="math">\(y = f(x) = e^{Ax}\)</span> to the data.
+Such a system cannot be easily solved using analytical methods which we have been using above.
+In fact, a solution may not even exist.
+Or many solutions may exist.
+Such a system can be solved using an iterative numerical procedure like <a href="https://en.wikipedia.org/wiki/Newton%27s_method">Newton-Raphson</a>.
+In general, fitting a function of <span class="math">\(M (M &lt; n)\)</span> parameters <span class="math">\(y = f(x, C_1, C_2, \dots, C_M)\)</span> to the data will generate a system of nonlinear equations which will have to be solved&nbsp;numerically.</p>
+<h3>References:</h3>
+<p><em><a href="https://www.amazon.com/Data-Driven-Modeling-Scientific-Computation-Methods/dp/0199660344">Data-Driven Modeling and Scientific Computation: Methods for Complex Systems and Big Data</a></em> by <a href="http://faculty.washington.edu/kutz/">Nathan&nbsp;Kutz</a></p>
+<p>For any questions regarding this post, reach out to me using one of the methods&nbsp;below.</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+		</div>
+
+		<footer>
+			<ul class="footer">
+				<li><a href="https://github.com/vibhavgaur">GitHub</a></li>
+				<li><a href="mailto:vibhavgaur@me.com">Email</a></li>
+				<li><a href="https://twitter.com/VibhavGaur">Twitter</a></li>
+				<li><a href="https://www.linkedin.com/in/vibhav-gaur-775815137/">LinkedIn</a></li>
+			</ul>
+		</footer> 
+</body>
+
+</html>

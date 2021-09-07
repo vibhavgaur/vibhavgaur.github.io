@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>Over and Under - determined&nbsp;systems</title>
+	<title>Method of least squares on an overdetermined&nbsp;system</title>
 	<link rel="stylesheet" type="text/css" href="https://vibhavgaur.github.io/theme/css/base.css"/>
 	<link rel="stylesheet" type="text/css" href="https://vibhavgaur.github.io/theme/css/code.css"/>
 </head>
@@ -17,21 +17,84 @@
 	</ul>
 
 		<div class="content">
-	<h2>Over and Under - determined&nbsp;systems</h2>
-	<label>Posted on <strong>August 08, 2021</strong></label>
+	<h2>Method of least squares on an overdetermined&nbsp;system</h2>
+	<label>Posted on <strong>September 03, 2021</strong></label>
 		
-	<!--Status: draft-->
-
-<p><strong>This post is a work in&nbsp;progress&#8230;</strong></p>
-<ul>
-<li><span class="math">\(0\)</span> eigenvalues indicate an invariance in some direction of the phase space which means we have an infinite number of choices in that direction &#8212; hence why we can&#8217;t have a unique&nbsp;solution</li>
-<li>For an over-determined system: You&#8217;re not actually finding the solution in 2-D space, the solution lies in the subspace of a higher dimensional space. * check this &#8212; I am not&nbsp;sure.</li>
-<li>If the <span class="math">\(n\)</span> columns of a square matrix <span class="math">\(A\)</span> are independent, they span <span class="math">\(\mathbb{R}^n\)</span>, so <span class="math">\(Ax=b\)</span> is solvable &#8212;&gt; because the column space is the whole space, so the system definitely has a solution.<ul>
-<li>if the column space is restricted, then most vectors in the space won&#8217;t be a solution, only a thin sliver (subspace) will contain the&nbsp;solutions.</li>
-<li>If the <span class="math">\(n\)</span> columns of <span class="math">\(A\)</span> span <span class="math">\(\mathbb{R}^n\)</span>, they are independent, so <span class="math">\(Ax=b\)</span> has only one&nbsp;solution.</li>
-</ul>
-</li>
-</ul>
+	<h1>Method of least squares applied to an overdetermined&nbsp;system</h1>
+<p>Let&#8217;s say we have an overdetermined system of linear&nbsp;equations</p>
+<p><img src=&#8221;https://latex.codecogs.com/gif.latex?<div class="math">\begin{array}{l};y=-2x-1\\g;y=3x-2\\g;y=x+1g;\end{array}</div><span class="dquo">&#8220;</span>/></p>
+<p>This system is overdetermined (or over-<em>constrained</em>) because we have 2 unknown variables - <img src="https://latex.codecogs.com/gif.latex?\inline;x"/> and <img src="https://latex.codecogs.com/gif.latex?\inlineg;y"/>, but we have 3 equations in <img src="https://latex.codecogs.com/gif.latex?\inlineg;x"/> and <img src="https://latex.codecogs.com/gif.latex?\inlineg;y"/>. This system can be rewritten in matrix form as follows (note that the bold <img src="https://latex.codecogs.com/gif.latex?\inlineg;\mathit{\mathbf{x}}"/> is a vector and is different from the light typeface <img src="https://latex.codecogs.com/gif.latex?\inlineg;x"/>, which is the independent variable in this system of&nbsp;equations):</p>
+<p><img src="https://latex.codecogs.com/gif.latex?A\;\mathit{\mathbf{x}}=\mathit{\mathbf{b}}"/></p>
+<p><img src=&#8221;https://latex.codecogs.com/gif.latex?\textrm{where}\;A=\left\lbrack;<div class="math">\begin{array}{cc}g;2g;&g;1\\g;-3g;&g;1\\g;-1g;&g;1g;\end{array}</div>\right\rbrackg;,\;b=\left\lbrackg;<div class="math">\begin{array}{c}g;-1\\g;-2\\g;1g;\end{array}</div>\right\rbrackg;\;\textrm{and}\;\mathit{\mathbf{x}}=\left\lbrackg;<div class="math">\begin{array}{c}g;x\\g;yg;\end{array}</div>\right\rbrack&#8221;/></p>
+<table class="codeBlocktable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span></pre></div></td><td class="code"><div class="codeBlock"><pre><span></span><code><span class="n">A</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">;</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">;</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="o">-</span><span class="mi">2</span><span class="p">;</span><span class="mi">1</span><span class="p">]</span><span class="w"></span>
+</code></pre></div>
+</td></tr></table>
+<p><code>matlab:Code
+A = [2,1;-3,1;-1,1], b = [-1;-2;1]</code></p>
+<p><span class="dquo">&#8220;</span>`text:Output
+A = 3x2  <br>
+     2     1
+    -3     1
+    -1&nbsp;1</p>
+<p>b = 3x1  <br>
+    -1
+    -2&nbsp;1</p>
+<p><span class="dquo">&#8220;</span>`</p>
+<p><code>matlab:Code
+fx = @(x) x; fz = @(x) 0;
+eq1 = @(x) -2.*x - 1, eq2 = @(x) 3.*x - 2, eq3 = @(x) x + 1</code></p>
+<p><span class="dquo">&#8220;</span>`text:Output
+eq1 =&nbsp;@(x)-2.*x-1</p>
+<p>eq2 =&nbsp;@(x)3.*x-2</p>
+<p>eq3 =&nbsp;@(x)x+1</p>
+<p><span class="dquo">&#8220;</span>`</p>
+<table class="codeBlocktable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="codeBlock"><pre><span></span><code><span class="n">int12</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">,:)</span><span class="o">\</span><span class="n">b</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
+<span class="n">int13</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">A</span><span class="p">(</span><span class="mi">1</span><span class="p">,:);</span><span class="n">A</span><span class="p">(</span><span class="mi">3</span><span class="p">,:)]</span><span class="o">\</span><span class="p">[</span><span class="n">b</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="n">b</span><span class="p">(</span><span class="mi">3</span><span class="p">)];</span><span class="w"></span>
+<span class="n">int23</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">A</span><span class="p">(</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">,:)</span><span class="o">\</span><span class="n">b</span><span class="p">(</span><span class="mi">2</span><span class="p">:</span><span class="mi">3</span><span class="p">);</span><span class="w"></span>
+<span class="n">intx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">int12</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="n">int23</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="n">int13</span><span class="p">(</span><span class="mi">1</span><span class="p">)];</span><span class="w"></span>
+<span class="n">inty</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="n">int12</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span><span class="n">int23</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span><span class="n">int13</span><span class="p">(</span><span class="mi">2</span><span class="p">)];</span><span class="w"></span>
+<span class="n">A</span><span class="o">\</span><span class="n">b</span><span class="w"></span>
+</code></pre></div>
+</td></tr></table>
+<p><span class="dquo">&#8220;</span>`text:Output
+ans = 2x1  <br>
+    0.1316&nbsp;-0.5789</p>
+<p><span class="dquo">&#8220;</span>`</p>
+<p><code>matlab:Code
+[Xgrid, Ygrid] = meshgrid(linspace(min(intx), max(intx),50), linspace(min(inty), max(inty),50));
+dfun = @(x,y) ((y+2*x+1).^2)/(1^2 + 2^2) + ((y+3*x+2).^2)/(1^2 + 3^2) + ((y+x-1).^2)/(1^2 + 1^2);
+[cX, cY] = meshgrid(-1:0.1:2,-5:0.1:4);</code></p>
+<p><span class="dquo">&#8220;</span>`matlab:Code
+x0 = 0.1316;
+y0 =&nbsp;-0.5789;</p>
+<p>% remove a vectorization warning that <span class="caps">MATLAB</span> will give
+warning(&#8216;off&#8217;,&#8217;<span class="caps">MATLAB</span>:fplot:NotVectorized&#8217;);</p>
+<p>plotInterval = [-1 2];
+figure; 
+sc = surfc(cX, cY, dfun(cX,cY)); 
+sc(2).LevelStep = 0.5; sc(2).LineStyle = &#8216;:&#8217;;
+sc(1).FaceAlpha = 0.1; sc(1).LineStyle = &#8216;-&#8216;;
+hold on;
+e1 = fplot3(fx, eq1, fz, plotInterval,&#8217;LineWidth&#8217;,2);
+e2 = fplot3(fx, eq2, fz, plotInterval,&#8217;LineWidth&#8217;,2);
+e3 = fplot3(fx, eq3, fz, plotInterval,&#8217;LineWidth&#8217;,2);
+plot([int12(1);int23(1);int13(1)],[int12(2);int23(2);int13(2)],&#8217;o&#8217;,&#8217;MarkerSize&#8217;,5,&#8217;LineWidth&#8217;,2);
+plot(x0,y0,&#8217;o&#8217;,&#8217;MarkerSize&#8217;,8,&#8217;LineWidth&#8217;,2); hold off;
+xlabel(&#8216;x&#8217;); ylabel(&#8216;y&#8217;); zlabel(&#8216;z&#8217;);
+legend([e1, e2, e3],&#8221;<span class="math">\(y=-2x-1\)</span><span class="dquo">&#8220;</span>,&#8221;<span class="math">\(y=3x-2\)</span><span class="dquo">&#8220;</span>,&#8221;<span class="math">\(y=x+1\)</span><span class="dquo">&#8220;</span>,&#8217;Location&#8217;,&#8221;bestoutside&#8221;,&#8217;interpreter&#8217;,&#8217;latex&#8217;)&nbsp;&#8220;`</p>
+<p><img alt="figure_0.png" src="OverdeterminedSystems_images/figure_0.png"></p>
+<p><code>matlab:Code
+% view(2); grid off;</code></p>
+<p><code>matlab:Code
+% turning the warning back on
+warning('on','MATLAB:fplot:NotVectorized');</code></p>
+<hr>
+<p><em>Generated from OverdeterminedSystems.mlx with <a href="https://github.com/roslovets/Live-Script-to-Markdown-Converter">Live Script to Markdown&nbsp;Converter</a></em></p>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
