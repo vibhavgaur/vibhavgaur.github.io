@@ -18,6 +18,16 @@ body hr{
 	border: 2px solid black;
 }
 
+#topBox{text-align: center;}
+#canvasContainer{
+	/*display: flex;*/
+	text-align: center;
+}
+/*#hoverText{display: none;}*/
+/*#canvasContainer:hover + #hoverText{
+	display: flex;
+}*/
+
 .siteTitle{text-align: center;}
 .siteTitle a{
 	color: black;
