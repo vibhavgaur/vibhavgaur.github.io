@@ -16,7 +16,6 @@ https://vibhavgaur.github.io/visodo-1.html
 https://vibhavgaur.github.io/math-jargon.html
 https://vibhavgaur.github.io/GVS-project.html
 https://vibhavgaur.github.io/Least-squares.html
-https://vibhavgaur.github.io/latex-dropbox-workflow.html
 https://vibhavgaur.github.io/overcast-dark-mode.html
 https://vibhavgaur.github.io/MNISTDecoder.html
 https://vibhavgaur.github.io/webtodo.html
@@ -31,8 +30,6 @@ https://vibhavgaur.github.io/tag/math.html
 https://vibhavgaur.github.io/tag/least-squares.html
 https://vibhavgaur.github.io/tag/computer-vision.html
 https://vibhavgaur.github.io/tag/linear-algebra.html
-https://vibhavgaur.github.io/tag/productivity.html
-https://vibhavgaur.github.io/tag/latex.html
 https://vibhavgaur.github.io/tag/css.html
 https://vibhavgaur.github.io/tag/dark-mode.html
 https://vibhavgaur.github.io/tag/podcasts.html

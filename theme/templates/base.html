@@ -9,7 +9,12 @@
 </head>
 
 <body>
-	<h1 class="siteTitle"><a href="{{ SITEURL }}/index.html">{{ SITENAME }}</a></h1>
+	<div id="topBox">
+		<h1 class="siteTitle"><a href="{{ SITEURL }}/index.html">{{ SITENAME }}</a></h1>
+		<div id="canvasContainer" data-toggle="tooltip" title="Click to learn more about this animation.">
+		</div>
+		<!-- <div id="hoverText">Click to learn more about this animation.</div> -->
+	</div>
 
 	<ul class="NavBar">
 		{% for page in pages %}
@@ -28,7 +33,8 @@
 				<li><a href="https://twitter.com/VibhavGaur">Twitter</a></li>
 				<li><a href="https://www.linkedin.com/in/vibhav-gaur-775815137/">LinkedIn</a></li>
 			</ul>
-		</footer> 
+		</footer>
+		{% block scripting %}{% endblock %}
 </body>
 
 </html>

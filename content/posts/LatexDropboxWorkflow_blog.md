@@ -7,6 +7,7 @@ Slug: latex-dropbox-workflow
 Authors: Vibhav Gaur 
 Blurb: One way to remotely collaborate on a LaTeX document.
 PageType: BlogEntry
+Status: draft
 
 **This post is a work in progress...**
 

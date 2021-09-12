@@ -6,10 +6,17 @@
 	<link rel="stylesheet" type="text/css" href="/theme/css/base.css"/>
 	<link rel="stylesheet" type="text/css" href="/theme/css/code.css"/>
 	<link rel="stylesheet" type="text/css" href="/theme/css/index.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-	<h1 class="siteTitle"><a href="/index.html">Vibhav Gaur</a></h1>
+	<div id="topBox">
+		<h1 class="siteTitle"><a href="/index.html">Vibhav Gaur</a></h1>
+		<div id="canvasContainer" data-toggle="tooltip" title="Click to learn more about this animation.">
+		</div>
+		<!-- <div id="hoverText">Click to learn more about this animation.</div> -->
+	</div>
 
 	<ul class="NavBar">
 			<li><a href="/pages/blog.html">Blog</a></li>
@@ -39,7 +46,7 @@ Hope you find it&nbsp;interesting!</p>
 </ul>
 </li>
 <li>Computer Vision<ul>
-<li>Projective&nbsp;geometry</li>
+<li>3-D Object&nbsp;detection</li>
 <li>Visual&nbsp;odometry</li>
 </ul>
 </li>
@@ -64,7 +71,12 @@ Hope you find it&nbsp;interesting!</p>
 				<li><a href="https://twitter.com/VibhavGaur">Twitter</a></li>
 				<li><a href="https://www.linkedin.com/in/vibhav-gaur-775815137/">LinkedIn</a></li>
 			</ul>
-		</footer> 
+		</footer>
+	<script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+	<script src="/theme/scripts/Cell.js"></script>
+	<script src="/theme/scripts/DFSMaze.js"></script>
+	<script>$(document).ready(function(){$('[data-toggle="tooltip"]').tooltip();});
+	</script>
 </body>
 
 </html>

@@ -4,6 +4,8 @@
 {% block title %}{{ SITENAME }}{% endblock %}
 {% block customStyleSheets %}
 	<link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/index.css"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -14,4 +16,12 @@
 	
 		<img class="indexPicture" height = 400px src="{{ SITEURL }}/images/frontPagePicture.jpg">
 	</div>
+{% endblock %}
+
+{% block scripting %}
+	<script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+	<script src="{{ SITEURL }}/theme/scripts/Cell.js"></script>
+	<script src="{{ SITEURL }}/theme/scripts/DFSMaze.js"></script>
+	<script>$(document).ready(function(){$('[data-toggle="tooltip"]').tooltip();});
+	</script>
 {% endblock %}

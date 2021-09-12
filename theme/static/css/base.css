@@ -8,7 +8,7 @@ body{
 	color: black;
 	width: 65%;
 	margin: 0 auto;
-	padding: 30px 0;
+	/*padding: 30px 0;*/
 	/*background-color: #856f49;*/
 	background-color: #9e9788;
 	display: flex;
@@ -17,6 +17,16 @@ body{
 body hr{
 	border: 2px solid black;
 }
+
+#topBox{text-align: center;}
+#canvasContainer{
+	/*display: flex;*/
+	text-align: center;
+}
+/*#hoverText{display: none;}*/
+/*#canvasContainer:hover + #hoverText{
+	display: flex;
+}*/
 
 .siteTitle{text-align: center;}
 .siteTitle a{

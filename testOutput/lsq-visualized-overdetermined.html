@@ -8,7 +8,12 @@
 </head>
 
 <body>
-	<h1 class="siteTitle"><a href="/index.html">Vibhav Gaur</a></h1>
+	<div id="topBox">
+		<h1 class="siteTitle"><a href="/index.html">Vibhav Gaur</a></h1>
+		<div id="canvasContainer" data-toggle="tooltip" title="Click to learn more about this animation.">
+		</div>
+		<!-- <div id="hoverText">Click to learn more about this animation.</div> -->
+	</div>
 
 	<ul class="NavBar">
 			<li><a href="/pages/blog.html">Blog</a></li>
@@ -20,12 +25,9 @@
 	<h2>Least squares applied to an overdetermined&nbsp;system</h2>
 	<label>Posted on <strong>September 06, 2021</strong></label>
 		
-	<!--Status: draft-->
-
-<p><strong>This post is a work in&nbsp;progress&#8230;</strong></p>
-<p>An <a href="https://en.wikipedia.org/wiki/Overdetermined_system">overdetermined system</a> of equations is one where there are more equations than unknown variables.
+	<p>An <a href="https://en.wikipedia.org/wiki/Overdetermined_system">overdetermined system</a> of equations is one where there are more equations than unknown variables.
 This type of system almost always has no solution, except for a couple of special cases.
-Let&#8217;s say wthat we have the following overdetermined system of linear&nbsp;equations</p>
+Let&#8217;s say that we have the following overdetermined system of linear&nbsp;equations</p>
 <div class="math">$$ 
 y = -2x - 1\\
 y = 3x - 2\\
@@ -76,6 +78,7 @@ Full disclosure &#8212; I calculated the square of the norm, but minimizing the 
 <img src="../images/OverdeterminedVisualized/Surface3D.png">
 </p>
 
+<p>If you have access to <span class="caps">MATLAB</span>, you can download the .fig file <a href="./documents/OverdeterminedVisualized/LeastSquaresVisualized.fig">here</a> and interact with the figure to understand it&nbsp;better.</p>
 <p>You can see the lines in the system on the xy-plane, along with the least squares solution.
 Though they are not very clear in this 3-D view, you may also be able to see the contour lines for this surface projected on the xy-plane.
 A keen eye might already see the connection between the norm surface and the least squares solution, but the relationship will be clear once we view this scene from the top&nbsp;down.</p>
@@ -84,9 +87,15 @@ A keen eye might already see the connection between the norm surface and the lea
 </p>
 
 <p>The least squares solution is exactly the point that minimizes the norm.
-The lowest point of the norm is that very&nbsp;point!</p>
+The lowest point of the norm is that very point!
+If you don&#8217;t believe me, you can use calculus to get to the same result.
+The (square of the) norm is given&nbsp;by</p>
+<div class="math">$$ \Phi(x,y) = (y + 2x + 1)^2 + (y - 3x + 2)^2 + (y - x - 1)^2 $$</div>
+<p>Find the partial derivatives of this expression, and calculate the minimum of this function.
+You will get the same exact&nbsp;point.</p>
 <h3>Experiment with other systems and the code (requires <span class="caps">MATLAB</span>)</h3>
-<p>The following <span class="caps">MATLAB</span> code was used to make the plots shown&nbsp;above:</p>
+<p>The following <span class="caps">MATLAB</span> code was used to make the plots shown above.
+This was written in <span class="caps">MATLAB</span> R2021a, but it should work directly in any newer&nbsp;version.</p>
 <table class="codeBlocktable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -251,7 +260,7 @@ The lowest point of the norm is that very&nbsp;point!</p>
 				<li><a href="https://twitter.com/VibhavGaur">Twitter</a></li>
 				<li><a href="https://www.linkedin.com/in/vibhav-gaur-775815137/">LinkedIn</a></li>
 			</ul>
-		</footer> 
+		</footer>
 </body>
 
 </html>

@@ -22,7 +22,7 @@ My interests (and therefore, the subjects of my blog/project posts) are in:
 	* Control theory
 	* Optimization
 * Computer Vision
-	* Projective geometry
+	* 3-D Object detection
 	* Visual odometry
 * Machine Learning
 	* Neural networks
