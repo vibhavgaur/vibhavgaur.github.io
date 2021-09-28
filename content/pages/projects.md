@@ -8,6 +8,7 @@ Well, I don't have someone to directly teach to, so I shout it out into the void
 
 ### Posts (maybe) coming in the future
 * Visual odometry on KITTI
+	* Planar panoramic mosaicing
 * Robot localization
 * Optimal Controls project
 * Thesis project?
