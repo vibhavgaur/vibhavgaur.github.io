@@ -10,6 +10,7 @@ https://vibhavgaur.github.io/archives.html
 https://vibhavgaur.github.io/pages/blog.html
 https://vibhavgaur.github.io/pages/coursework.html
 https://vibhavgaur.github.io/pages/projects.html
+https://vibhavgaur.github.io/maze-animation.html
 https://vibhavgaur.github.io/lsq-visualized-overdetermined.html
 https://vibhavgaur.github.io/visodo-2.html
 https://vibhavgaur.github.io/visodo-1.html
@@ -26,6 +27,8 @@ https://vibhavgaur.github.io/category/opinion.html
 https://vibhavgaur.github.io/category/posts.html
 https://vibhavgaur.github.io/category/projects.html
 https://vibhavgaur.github.io/category/teachnlearn.html
+https://vibhavgaur.github.io/tag/computer-science.html
+https://vibhavgaur.github.io/tag/algorithms.html
 https://vibhavgaur.github.io/tag/math.html
 https://vibhavgaur.github.io/tag/least-squares.html
 https://vibhavgaur.github.io/tag/computer-vision.html

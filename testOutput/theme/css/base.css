@@ -18,17 +18,18 @@ body hr{
 	border: 2px solid black;
 }
 
-#topBox{text-align: center;}
+#topBox, h1{
+	text-align: center;
+	margin-bottom: 0;
+}
 #canvasContainer{
 	/*display: flex;*/
 	text-align: center;
 }
-/*#hoverText{display: none;}*/
-/*#canvasContainer:hover + #hoverText{
-	display: flex;
-}*/
 
-.siteTitle{text-align: center;}
+.siteTitle{
+	text-align: center;
+}
 .siteTitle a{
 	color: black;
 	text-decoration: none;

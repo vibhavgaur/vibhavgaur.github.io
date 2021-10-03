@@ -15,6 +15,9 @@ function setup(){
     //frameRate(30);
     var canvas = createCanvas(mazeWidth, mazeHeight);
     canvas.parent("canvasContainer");
+    canvas.onmousedown = function(){
+        console.log("Mouse down in canvas");
+    };
     // create the grid
     for(let i = 0; i < nrows; i++){
         let gridRow = [];
