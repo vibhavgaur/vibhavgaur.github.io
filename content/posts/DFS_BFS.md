@@ -9,11 +9,6 @@ Blurb: Generating and solving random mazes
 PageType: BlogEntry
 <!--Status: draft-->
 
-* Computational graphs
-* Graph traversal 
-* Maze as graph 
-* Depth-first search 
-
 ### Graphs
 
 In general, a [graph](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)) is a way to model pairwise relationships between things.
@@ -22,9 +17,9 @@ You can probably tell by how general that definition is, that graphs have a ton 
 Suffice it to say, they are quite useful to model some very interesting problems.
 We will take a look at one of these problems which happens to be quite fun, and can lead to cool looking results.
 
-<center>
-**Picture of graph here**
-</center>
+<p align="center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/5/57/6n-graf.png" alt="6n-graf.png">
+</p>
 
 #### Grids as graphs
 
@@ -33,13 +28,14 @@ This grid (and indeed, any $n$-D grid) can be represented as a graph.
 Each cell of the grid can be a vertex of the graph while the edges can represent the spatial relationships between the vertices.
 For example, a cell in the interior of the grid (i.e. a cell that is not at the boundary) is represented by a vertex in the graph, all of its neighbours will be represented by the vertices connected to its vertex.
 
-<center>
-**Picture of grid**
-</center>
+<p align="center">
+<img src="../images/DFS_BFS/grid.png" height="145" width="145">
+<img src="https://upload.wikimedia.org/wikipedia/commons/1/14/Square_grid_graph.svg" alt="Square grid graph.svg" height="145" width="145">
+</p>
 
 ### Graph traversal
 
-A **[graph traversal](https://en.wikipedia.org/wiki/Graph_traversal#Graph_traversal_algorithms)** is the process of visiting every node of a graph, and the algorithms that perform this are called graph traversal algorithms.
+A **[graph traversal](https://en.wikipedia.org/wiki/Graph_traversal)** is the process of visiting every node of a graph, and the algorithms that perform this are called graph traversal algorithms.
 If done creatively, these algorithms can help generate and solve random mazes -- we will see how below.
 If you didn't see it already, I have an example of a maze generation algorithm running under the title on the homepage, check it out to see what's in store.
 I will also talk about the code used for that animation in the remainder of the post.
@@ -58,6 +54,7 @@ In words, the DFS algorithm does the following:
 5. Backtrack to a node with unexplored "child" nodes.
 6. Repeat until you can't no more.
 
+
 After performing this, you will have explored every node in the graph.
 Note that the algorithm isn't actually a 6-step process.
 In fact, this version is expanded for clarity, you could definitely make that list shorter with better wording. 
@@ -71,3 +68,6 @@ I'm not going to push this analogy too hard, but imagine that snake randomly mov
 If we simply remove the walls between the explored cells (i.e. the path explored by the snake), it will carve out a path in the maze.
 In the process of backtracking and exploring other paths, the snake will carve out many other paths (and dead ends) in the maze, which is exactly what we want!
 
+<p align="center">
+<img src="../images/DFS_BFS/nokia-snake-game.gif">
+</p>

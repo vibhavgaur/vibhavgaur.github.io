@@ -1,4 +1,4 @@
-Title: Steering controller for simulated driver in ASM (dSPACE)
+Title: Steering controller for simulated driver in dSPACE ASM
 Date: 2021-06-28 10:45
 Modified: 2021-06-28 10:45
 Slug: GVS-project

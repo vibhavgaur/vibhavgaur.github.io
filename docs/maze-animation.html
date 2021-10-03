@@ -10,8 +10,11 @@
 <body>
 	<div id="topBox">
 		<h1 class="siteTitle"><a href="https://vibhavgaur.github.io/index.html">Vibhav Gaur</a></h1>
-		<span id="canvasContainer" title="Click to learn more">
-		</span>
+		<div id="canvasDiv">
+			<!-- This div is to make the canvas clickable -->
+			<span id="canvasContainer" title="Click to learn more">
+			</span>
+		</div>
 	</div>
 
 	<ul class="NavBar">
@@ -26,31 +29,28 @@
 		
 	<!--Status: draft-->
 
-<ul>
-<li>Computational&nbsp;graphs</li>
-<li>Graph&nbsp;traversal </li>
-<li>Maze as&nbsp;graph </li>
-<li>Depth-first&nbsp;search </li>
-</ul>
 <h3>Graphs</h3>
 <p>In general, a <a href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)">graph</a> is a way to model pairwise relationships between things.
 The <em>things</em> are represented by nodes (or vertices; I will use both interchangeably) in the graph and the relationships are represented by the lines joining them, called edges.
 You can probably tell by how general that definition is, that graphs have a ton of different applications in a lot of different problems.
 Suffice it to say, they are quite useful to model some very interesting problems.
 We will take a look at one of these problems which happens to be quite fun, and can lead to cool looking&nbsp;results.</p>
-<p><center>
-<strong>Picture of graph here</strong>
-</center></p>
+<p align="center">
+<img src="https://upload.wikimedia.org/wikipedia/commons/5/57/6n-graf.png" alt="6n-graf.png">
+</p>
+
 <h4>Grids as&nbsp;graphs</h4>
 <p>Take a look at the grid below &#8212; its a 2-D grid, but it doesn&#8217;t have to be 2-D, it can be an <span class="math">\(n\)</span>-D grid.
 This grid (and indeed, any <span class="math">\(n\)</span>-D grid) can be represented as a graph.
 Each cell of the grid can be a vertex of the graph while the edges can represent the spatial relationships between the vertices.
 For example, a cell in the interior of the grid (i.e. a cell that is not at the boundary) is represented by a vertex in the graph, all of its neighbours will be represented by the vertices connected to its&nbsp;vertex.</p>
-<p><center>
-<strong>Picture of grid</strong>
-</center></p>
+<p align="center">
+<img src="../images/DFS_BFS/grid.png" height="145" width="145">
+<img src="https://upload.wikimedia.org/wikipedia/commons/1/14/Square_grid_graph.svg" alt="Square grid graph.svg" height="145" width="145">
+</p>
+
 <h3>Graph&nbsp;traversal</h3>
-<p>A <strong><a href="https://en.wikipedia.org/wiki/Graph_traversal#Graph_traversal_algorithms">graph traversal</a></strong> is the process of visiting every node of a graph, and the algorithms that perform this are called graph traversal algorithms.
+<p>A <strong><a href="https://en.wikipedia.org/wiki/Graph_traversal">graph traversal</a></strong> is the process of visiting every node of a graph, and the algorithms that perform this are called graph traversal algorithms.
 If done creatively, these algorithms can help generate and solve random mazes &#8212; we will see how below.
 If you didn&#8217;t see it already, I have an example of a maze generation algorithm running under the title on the homepage, check it out to see what&#8217;s in store.
 I will also talk about the code used for that animation in the remainder of the&nbsp;post.</p>
@@ -77,6 +77,10 @@ Maze generation is an interesting and entertaining way to learn about graph sear
 I&#8217;m not going to push this analogy too hard, but imagine that snake randomly moving on this grid.
 If we simply remove the walls between the explored cells (i.e. the path explored by the snake), it will carve out a path in the maze.
 In the process of backtracking and exploring other paths, the snake will carve out many other paths (and dead ends) in the maze, which is exactly what we&nbsp;want!</p>
+<p align="center">
+<img src="../images/DFS_BFS/nokia-snake-game.gif">
+</p>
+
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",

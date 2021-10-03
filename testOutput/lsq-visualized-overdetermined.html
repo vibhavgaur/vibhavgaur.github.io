@@ -10,8 +10,11 @@
 <body>
 	<div id="topBox">
 		<h1 class="siteTitle"><a href="/index.html">Vibhav Gaur</a></h1>
-		<span id="canvasContainer" title="Click to learn more">
-		</span>
+		<div id="canvasDiv">
+			<!-- This div is to make the canvas clickable -->
+			<span id="canvasContainer" title="Click to learn more">
+			</span>
+		</div>
 	</div>
 
 	<ul class="NavBar">
@@ -92,9 +95,10 @@ The (square of the) norm is given&nbsp;by</p>
 <div class="math">$$ \Phi(x,y) = (y + 2x + 1)^2 + (y - 3x + 2)^2 + (y - x - 1)^2 $$</div>
 <p>Find the partial derivatives of this expression, and calculate the minimum of this function.
 You will get the same exact&nbsp;point.</p>
-<h3>Experiment with other systems and the code (requires <span class="caps">MATLAB</span>)</h3>
+<h3>Experiment with other systems and the code (requires <span class="caps">MATLAB</span>/Octave)</h3>
 <p>The following <span class="caps">MATLAB</span> code was used to make the plots shown above.
-This was written in <span class="caps">MATLAB</span> R2021a, but it should work directly in any newer&nbsp;version.</p>
+This was written in <span class="caps">MATLAB</span> R2021a, but it should work directly in any newer version.
+I have not tested this with Octave, but I don&#8217;t think it should be difficult to get it working there&nbsp;either.</p>
 <table class="codeBlocktable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>

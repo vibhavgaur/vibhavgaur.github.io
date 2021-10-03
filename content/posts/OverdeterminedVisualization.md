@@ -94,10 +94,11 @@ $$ \Phi(x,y) = (y + 2x + 1)^2 + (y - 3x + 2)^2 + (y - x - 1)^2 $$
 Find the partial derivatives of this expression, and calculate the minimum of this function.
 You will get the same exact point.
 
-### Experiment with other systems and the code (requires MATLAB)
+### Experiment with other systems and the code (requires MATLAB/Octave)
 
 The following MATLAB code was used to make the plots shown above.
 This was written in MATLAB R2021a, but it should work directly in any newer version.
+I have not tested this with Octave, but I don't think it should be difficult to get it working there either.
 
 	#!matlab
 	A = [2,1;-3,1;-1,1], b = [-1;-2;1]
