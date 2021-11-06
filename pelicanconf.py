@@ -43,7 +43,7 @@ DEFAULT_METADATA = {}        # Default: {} -- default metadata used for all arti
 
 ## -----------------------------Plugins Settings----------------------------- ##
 
-PLUGIN_PATHS = ['./plugins/plugins']    # directory where to look for plugins
+PLUGIN_PATHS = ['./plugins/pelican-plugins']    # directory where to look for plugins
 # List of plugins to load
 PLUGINS = ['render_math',
             'sitemap'
