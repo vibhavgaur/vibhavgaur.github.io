@@ -41,22 +41,84 @@ I&#8217;ll give a quick summary here, but if you really want to understand this 
 <p>In essence, every matrix is a mapping of points to other points.
 We can represent points in abstract spaces by vectors &#8212; so a matrix can be thought of as a mapping from vectors to other vectors.
 This mapping, or <em>transformation</em> is applied through an operation called matrix multiplication, i.e., multiplying the matrix with the vector representation of the point (or simply the vector from now on).
-For example, the point $[1 \; 0]^T$ is <em>transformed</em> (or <em>mapped</em>) to the point $[2 \; 0]^T$ using the following matrix&nbsp;multiplication</p>
+For example, the point <span class="math">\([1 \; 0]^T\)</span> is <em>transformed</em> (or <em>mapped</em>) to the point <span class="math">\([2 \; 0]^T\)</span> using the following matrix&nbsp;multiplication</p>
 <p>&lt;&lt; change this example to something that rotates and stretches&nbsp;&gt;&gt;</p>
-<p>$$ \begin{bmatrix}
-    2 <span class="amp">&amp;</span> 0\
-    0 <span class="amp">&amp;</span> 2
+<div class="math">$$ \begin{bmatrix}
+    2 &amp; 0\\
+    0 &amp; 2
    \end {bmatrix} \begin{bmatrix}
-            1\
+            1\\
             0
               \end{bmatrix} = \begin{bmatrix}
-                    2\
+                    2\\
                     0
-                  \end{bmatrix}&nbsp;$$</p>
+                  \end{bmatrix} $$</div>
 <p>Once you can start seeing matrices as transformations of a (appropriate dimensional) space, we can start to build our intuition on top of that.
 The eigenvectors of a matrix give us the directions which are unaffected by the rotation caused by the matrix&#8217;s transformation. 
 The corresponding eigenvalues give us the scaling factor for that given direction.
 In the same way, the singular values and singular vectors give us the direction and multiplier of the direction of biggest increase when the matrix transformation is&nbsp;applied.</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
 		</div>
 
 		<footer>
