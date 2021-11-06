@@ -132,6 +132,7 @@ We will use this to filter out bad matches.
 
 
 	#!python
+    from skimage.measure import ransac
 	ransacData = np.array([(kp1[m.queryIdx].pt, kp2[m.trainIdx].pt) for m in goodMatches])
 	model, inliers = ransac((ransacData[:,0], ransacData[:,1]), FundamentalMatrixTransform, min_samples=8, residual_threshold=1, max_trials=2000)
 	print("Fundamental Matrix:\n", model.params)
