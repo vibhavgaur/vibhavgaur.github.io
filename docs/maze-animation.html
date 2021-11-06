@@ -31,32 +31,37 @@
 
 <h3>Graphs</h3>
 <p>In general, a <a href="https://en.wikipedia.org/wiki/Graph_(discrete_mathematics)">graph</a> is a way to model pairwise relationships between things.
-The <em>things</em> are represented by nodes (or vertices; I will use both interchangeably) in the graph and the relationships are represented by the lines joining them, called edges.
+The <em>things</em> are represented by nodes (or vertices; I will use both interchangeably) in the graph, and the relationships are represented by the lines joining them, called edges.
 You can probably tell by how general that definition is, that graphs have a ton of different applications in a lot of different problems.
 Suffice it to say, they are quite useful to model some very interesting problems.
-We will take a look at one of these problems which happens to be quite fun, and can lead to cool looking&nbsp;results.</p>
-<p align="center">
+We will take a look at one of these problems which happens to be quite fun, and can lead to cool looking results - the problem of generating and solving random&nbsp;mazes.</p>
+<figure align="center">
 <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/6n-graf.png" alt="6n-graf.png">
-</p>
+<figcaption>Example of a graph</figcaption>
+</figure>
 
 <h4>Grids as&nbsp;graphs</h4>
-<p>Take a look at the grid below &#8212; its a 2-D grid, but it doesn&#8217;t have to be 2-D, it can be an <span class="math">\(n\)</span>-D grid.
-This grid (and indeed, any <span class="math">\(n\)</span>-D grid) can be represented as a graph.
+<p>We will make our maze from a 2-D grid, and the first thing we need to do is model the grid as a graph.
+This model is just a way to think about the problem in a systematic way.
+Take a look at the grid below &#8212; its a 2-D grid, but it doesn&#8217;t have to be 2-D, it can be an $n$-D grid.
+This grid (and indeed, any $n$-D grid) can be represented as a graph.
 Each cell of the grid can be a vertex of the graph while the edges can represent the spatial relationships between the vertices.
-For example, a cell in the interior of the grid (i.e. a cell that is not at the boundary) is represented by a vertex in the graph, all of its neighbours will be represented by the vertices connected to its&nbsp;vertex.</p>
-<p align="center">
+For example, a cell in the interior of the grid (i.e. a cell that is not at the boundary) is represented by a vertex in the graph, and all of its neighbours will be represented by the vertices connected to its&nbsp;vertex.</p>
+<figure align="center">
 <img src="../images/DFS_BFS/grid.png" height="145" width="145">
-<img src="https://upload.wikimedia.org/wikipedia/commons/1/14/Square_grid_graph.svg" alt="Square grid graph.svg" height="145" width="145">
-</p>
+<!-- <img src="https://upload.wikimedia.org/wikipedia/commons/1/14/Square_grid_graph.svg" alt="Square grid graph.svg" height="145" width="145"> -->
+<img src="../images/DFS_BFS/grid_as_graph.png" height="145" width="145">
+<figcaption>The above two representations are equivalent &#8212; each cell is a node and neighboring relationships are indicated by edges</figcaption>
+</figure>
 
 <h3>Graph&nbsp;traversal</h3>
 <p>A <strong><a href="https://en.wikipedia.org/wiki/Graph_traversal">graph traversal</a></strong> is the process of visiting every node of a graph, and the algorithms that perform this are called graph traversal algorithms.
 If done creatively, these algorithms can help generate and solve random mazes &#8212; we will see how below.
-If you didn&#8217;t see it already, I have an example of a maze generation algorithm running under the title on the homepage, check it out to see what&#8217;s in store.
-I will also talk about the code used for that animation in the remainder of the&nbsp;post.</p>
+If you didn&#8217;t see it already, I have an example of a maze generation algorithm running under the title on the homepage, click my name at the top of this page to see what&#8217;s in store.
+I will also talk about the code used for that animation in this&nbsp;post.</p>
 <h3>Depth-first&nbsp;search</h3>
 <p>The Depth-First Search (<span class="caps">DFS</span>) algorithm is one way of traversing a graph.
-As the name suggests, this algorithm traverses the graph in a way that first explores the graph by going deep into it, then backtracking before finding another path to go deep into the graph, until the whole graph has been explored.
+As the name suggests, this algorithm traverses the graph in a way that first explores the graph by going deep into it, then backtracking before finding another path to go deep into, until the whole graph has been explored.
 If you sit down and try to come up with an algorithm (a set of instructions) for exploring all the nodes of a graph, you will likely come up with this one.
 In words, the <span class="caps">DFS</span> algorithm does the&nbsp;following:</p>
 <ol>
@@ -65,84 +70,21 @@ In words, the <span class="caps">DFS</span> algorithm does the&nbsp;following:</
 <li>Pick one &#8220;child&#8221; node of the &#8220;root&#8221; node at random, and go to&nbsp;it.</li>
 <li>Repeat this process until you can&#8217;t no&nbsp;more.</li>
 <li>Backtrack to a node with unexplored &#8220;child&#8221;&nbsp;nodes.</li>
-<li>Repeat until you can&#8217;t no&nbsp;more.</li>
+<li>Repeat 3-5 until you can&#8217;t no&nbsp;more.</li>
 </ol>
 <p>After performing this, you will have explored every node in the graph.
 Note that the algorithm isn&#8217;t actually a 6-step process.
 In fact, this version is expanded for clarity, you could definitely make that list shorter with better wording. 
 As with almost everything, <span class="caps">DFS</span> is much easier to understand if you try to implement it.
-Maze generation is an interesting and entertaining way to learn about graph search&nbsp;algorithms.</p>
+Maze generation is an interesting and entertaining way to learn about graph search algorithms like <span class="caps">DFS</span>.</p>
 <h3>Maze generation using <span class="caps">DFS</span></h3>
 <p>Think about the game of snake from those really old Nokia phones.
 I&#8217;m not going to push this analogy too hard, but imagine that snake randomly moving on this grid.
 If we simply remove the walls between the explored cells (i.e. the path explored by the snake), it will carve out a path in the maze.
 In the process of backtracking and exploring other paths, the snake will carve out many other paths (and dead ends) in the maze, which is exactly what we&nbsp;want!</p>
-<p align="center">
+<figure align="center">
 <img src="../images/DFS_BFS/nokia-snake-game.gif">
-</p>
-
-<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
-
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
-
-    var mathjaxscript = document.createElement('script');
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
-
-    var configscript = document.createElement('script');
-    configscript.type = 'text/x-mathjax-config';
-    configscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    messageStyle: 'normal'," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        availableFonts: ['STIX', 'TeX']," +
-        "        preferredFont: 'STIX'," +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script>
+</figure>
 		</div>
 
 		<footer>

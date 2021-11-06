@@ -105,7 +105,7 @@ Even the bad matches look pretty good!
 <img src="../images/VisOdo2/output_12_0.png">
 </p>
 
-These matches will still be pretty noise if I were to detect them across all frames in the video, so we need to somehow enforce the perspective projection/projective geometry model on them.
+These matches will still be pretty noisy if I were to detect them across all frames in the video, so we need to somehow enforce the perspective projection/projective geometry model on them.
 This can be done by using the Fundamental Matrix.
 
 #### Filtering bad matches using the Fundamental Matrix
@@ -117,11 +117,17 @@ This is really cool, because now when we search for a match, we just need to sea
 This constraint restricts our search space by a lot!
 Here, we will use this fact in a reverse way.
 We already have the matches, thanks to our brute-force matcher -- albeit not all of them are high quality as we saw above.
-And we know that the matches must satisfy the epipolar constraint, which is basically saying that they must follow the mapping (or transformation) of the fundamental matrix.
+And we know (actually, we assume) that the matches must satisfy the epipolar constraint, which is basically saying that they must follow the mapping (or transformation) of the fundamental matrix.
 Now, we can tell by looking at each match if it is a good quality match or not, but this constraint gives us a quantitative way of deciding whether a match is a good match or not.
 So, the points that don't obey this fundamental matrix transform (or mapping) are bad matches.
 
 There is an algorithm that fits the best model with specified structure to noisy data, called [RANSAC](https://en.wikipedia.org/wiki/Random_sample_consensus), which can help us check which mapping satisfies most of our data.
+RANSAC stands for Random Sample Consensus.
+While that may sound fancy, the algorithm itself is fairly common sense.
+RANSAC takes a *random sample* of data and fits a model to it.
+It keeps repeating this process until it fits a model that represents most of the data well enough (according to some pre-specified parameters).
+This is the mathematical equivalent of forming an opinion on a topic by asking a bunch of people what they think is right, and then going with whatever most people said is right.
+All things considered, its not a terrible way to form opinions.
 We will use this to filter out bad matches.
 
 

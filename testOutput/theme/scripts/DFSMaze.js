@@ -17,7 +17,6 @@ function setup(){
     canvas.parent("canvasContainer");
     // make the canvas clickable -- so that it takes you to the blog post about the maze
     document.getElementById("canvasDiv").onmousedown = function(){
-        console.log("Mouse down in canvas");
         location.replace('/maze-animation.html');
         return true;
     };

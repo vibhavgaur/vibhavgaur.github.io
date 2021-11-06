@@ -77,6 +77,11 @@ body hr{
 	max-width: 100%;
 }
 
+figcaption{
+    font-size: 75%;
+    color: #383838;
+}
+
 .footer{
 	list-style-type: none;
 	margin: 0;

@@ -141,7 +141,7 @@ Even the bad matches look pretty&nbsp;good!</p>
 <p>These matches will still be pretty noise if I were to detect them across all frames in the video, so we need to somehow enforce the perspective projection/projective geometry model on them.
 This can be done by using the Fundamental&nbsp;Matrix.</p>
 <h4>Filtering bad matches using the Fundamental&nbsp;Matrix</h4>
-<p>The <strong><a href="https://en.wikipedia.org/wiki/Fundamental_matrix_(computer_vision)">fundamental matrix</a></strong> <span class="math">\(F\)</span> is a matrix that maps points in one image to their matches in the other image (I&#8217;m not fully sure, but this is typically done in a stereo setting &#8212; however a single moving camera is approximately a stereo camera that is not moving, as long as the frame rate is high enough compared to the camera motion).
+<p>The <strong><a href="https://en.wikipedia.org/wiki/Fundamental_matrix_(computer_vision)">fundamental matrix</a></strong> $F$ is a matrix that maps points in one image to their matches in the other image (I&#8217;m not fully sure, but this is typically done in a stereo setting &#8212; however a single moving camera is approximately a stereo camera that is not moving, as long as the frame rate is high enough compared to the camera motion).
 Ok, technically it doesn&#8217;t match points to points, but points to their respective epipolar lines.
 Due to the <a href="https://en.wikipedia.org/wiki/Epipolar_geometry#Epipolar_constraint_and_triangulation">epipolar constraint</a>, it is guaranteed that a point in one image plane will have its match in the other (stereo) image frame on a line (called the epipolar line).
 This is really cool, because now when we search for a match, we just need to search a line in the image instead of the whole 2-D image.
@@ -193,68 +193,6 @@ See you <a href="../visodo-3.html">there</a>.</p>
 <li><a href="https://www.youtube.com/playlist?list=PLrHDCRerOaI9HfgZDbiEncG5dx7S3Nz6X"><span class="caps">KITTI</span> Odometry with OpenCV Python</a> by Nate&nbsp;Cibik</li>
 <li>Visual Odometry by David Scaramuzza and Friedrich&nbsp;Fraundorfer</li>
 </ul>
-<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
-
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
-
-    var mathjaxscript = document.createElement('script');
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
-
-    var configscript = document.createElement('script');
-    configscript.type = 'text/x-mathjax-config';
-    configscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    messageStyle: 'normal'," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        availableFonts: ['STIX', 'TeX']," +
-        "        preferredFont: 'STIX'," +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script>
 		</div>
 
 		<footer>

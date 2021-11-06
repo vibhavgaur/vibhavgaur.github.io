@@ -30,17 +30,15 @@
 	<p>An <a href="https://en.wikipedia.org/wiki/Overdetermined_system">overdetermined system</a> of equations is one where there are more equations than unknown variables.
 This type of system almost always has no solution, except for a couple of special cases.
 Let&#8217;s say that we have the following overdetermined system of linear&nbsp;equations</p>
-<div class="math">$$ 
-y = -2x - 1\\
-y = 3x - 2\\
-y = x + 1
-$$</div>
-<p>This system is overdetermined (or over-<em>constrained</em>) because we have 2 unknown variables &#8212; <span class="math">\(x\)</span> and <span class="math">\(y\)</span>, but we have 3 equations in <span class="math">\(x\)</span> and <span class="math">\(y\)</span>.
-This system can be rewritten in matrix form as follows (note that the bold <span class="math">\(\mathbf{x}\)</span> is a vector and is different from the light typeface <span class="math">\(x\)</span>, which is the independent variable in this system of&nbsp;equations):</p>
-<div class="math">$$ A \mathbf{x} = \mathbf{b}\\
-\text{where } A = \begin{bmatrix} 2 &amp; 1\\ -3 &amp; 1\\ -1 &amp; 1 \end{bmatrix} \text{, } \mathbf{b} = \begin{bmatrix} -1\\ -2\\ 1 \end{bmatrix} \text{, and }
-\mathbf{x} = \begin{bmatrix} x\\ y \end{bmatrix}
-$$</div>
+<p>$$ 
+y = -2x - 1\
+y = 3x - 2\
+y = x + 1&nbsp;$$</p>
+<p>This system is overdetermined (or over-<em>constrained</em>) because we have 2 unknown variables &#8212; $x$ and $y$, but we have 3 equations in $x$ and $y$.
+This system can be rewritten in matrix form as follows (note that the bold $\mathbf{x}$ is a vector and is different from the light typeface $x$, which is the independent variable in this system of&nbsp;equations):</p>
+<p>$$ A \mathbf{x} = \mathbf{b}\
+\text{where } A = \begin{bmatrix} 2 <span class="amp">&amp;</span> 1\ -3 <span class="amp">&amp;</span> 1\ -1 <span class="amp">&amp;</span> 1 \end{bmatrix} \text{, } \mathbf{b} = \begin{bmatrix} -1\ -2\ 1 \end{bmatrix} \text{, and }
+\mathbf{x} = \begin{bmatrix} x\ y \end{bmatrix}&nbsp;$$</p>
 <p>Now, <span class="caps">MATLAB</span> gives us the least squares solution to this overdetermined system very easily using the&nbsp;following</p>
 <table class="codeBlocktable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span></pre></div></td><td class="code"><div class="codeBlock"><pre><span></span><code><span class="n">A</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">;</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">;</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">];</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="o">-</span><span class="mi">2</span><span class="p">;</span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
@@ -61,19 +59,19 @@ As is clear from the picture above, this system has no solution that satisfies a
 The best we can do is get &#8220;close&#8221; to the lines in some sense &#8212; that manner of &#8220;closeness&#8221; is what decides where the least squares solution will end up.
 The manner of &#8220;closeness&#8221; is some kind of distance, and the generalized mathematical term for distance is a <strong>norm</strong>.
 As it turns out, the least squares solution to every overdetermined system will reduce to the minimization of a&nbsp;norm.</p>
-<p>By default, the norm that is used for least squares problem is the <span class="math">\(l^2\)</span>-norm, which, in common parlance is known as the length of a vector from the origin.
-The <span class="math">\(l^2\)</span>-norm of a vector <span class="math">\(x\)</span> is defined as&nbsp;follows:</p>
-<div class="math">$$ ||x|| = \sqrt{x_1^2 + x_2^2 + \dots + x_n^2} \text{, where } x = \begin{bmatrix}x_1\\ x_2\\ \vdots\\ x_n \end{bmatrix} $$</div>
-<p>The <span class="math">\(l^2\)</span>-norm that we want to minimize in the least squares problem is <span class="math">\(||A\mathbf{x}-\mathbf{b}||\)</span>.
+<p>By default, the norm that is used for least squares problem is the $l^2$-norm, which, in common parlance is known as the length of a vector from the origin.
+The $l^2$-norm of a vector $x$ is defined as&nbsp;follows:</p>
+<p>$$ ||x|| = \sqrt{x_1^2 + x_2^2 + \dots + x_n^2} \text{, where } x = \begin{bmatrix}x_1\ x_2\ \vdots\ x_n \end{bmatrix}&nbsp;$$</p>
+<p>The $l^2$-norm that we want to minimize in the least squares problem is $||A\mathbf{x}-\mathbf{b}||$.
 Let&#8217;s think about what that means.
-Writing <span class="math">\(A \mathbf{x} - \mathbf{b} = 0\)</span> is the same as writing each equation in the linear system in the form of <span class="math">\(ax + by + c = 0\)</span>.
-For any value of <span class="math">\(\mathbf{x} = [x',y']^T\)</span>, the expression <span class="math">\(A \mathbf{x} - \mathbf{b}\)</span> will be a vector.
-The contents of the vector will be how much <span class="math">\(c\)</span> would need to change by for each equation such that the point <span class="math">\((x', y')\)</span> satisfies each of the 3 lines.
+Writing $A \mathbf{x} - \mathbf{b} = 0$ is the same as writing each equation in the linear system in the form of $ax + by + c = 0$.
+For any value of $\mathbf{x} = [x&#8217;,y&#8217;]^T$, the expression $A \mathbf{x} - \mathbf{b}$ will be a vector.
+The contents of the vector will be how much $c$ would need to change by for each equation such that the point $(x&#8217;, y&#8217;)$ satisfies each of the 3 lines.
 Let&#8217;s work it out for one of the lines and&nbsp;confirm:</p>
-<div class="math">$$ \text{Let } (x',y') = (0,0) \text{ and plug it into } y + 2x + 1 \implies (0) + 2 (0) + 1 = 1$$</div>
-<p>So, if we subtract 1 from the first equation, the point <span class="math">\((0,0)\)</span> would lie on the line described by the resulting equation.
-If we minimize this norm for the system, we are effectively finding <span class="math">\(\mathbf{x}\)</span> such that the entire system would have to be moved the least amount to be satisfied by the point <span class="math">\(\mathbf{x}\)</span>.</p>
-<p>I calculated the <span class="math">\(l^2\)</span>-norm for this system at a grid of points on the xy-plane and plotted the value of the norm on the z-axis.
+<p>$$ \text{Let } (x&#8217;,y&#8217;) = (0,0) \text{ and plug it into } y + 2x + 1 \implies (0) + 2 (0) + 1 =&nbsp;1$$</p>
+<p>So, if we subtract 1 from the first equation, the point $(0,0)$ would lie on the line described by the resulting equation.
+If we minimize this norm for the system, we are effectively finding $\mathbf{x}$ such that the entire system would have to be moved the least amount to be satisfied by the point&nbsp;$\mathbf{x}$.</p>
+<p>I calculated the $l^2$-norm for this system at a grid of points on the xy-plane and plotted the value of the norm on the z-axis.
 This is the surface that resulted.
 Full disclosure &#8212; I calculated the square of the norm, but minimizing the square of the norm is the same as minimizing the norm itself in this&nbsp;case.</p>
 <p align="center">
@@ -92,7 +90,7 @@ A keen eye might already see the connection between the norm surface and the lea
 The lowest point of the norm is that very point!
 If you don&#8217;t believe me, you can use calculus to get to the same result.
 The (square of the) norm is given&nbsp;by</p>
-<div class="math">$$ \Phi(x,y) = (y + 2x + 1)^2 + (y - 3x + 2)^2 + (y - x - 1)^2 $$</div>
+<p>$$ \Phi(x,y) = (y + 2x + 1)^2 + (y - 3x + 2)^2 + (y - x - 1)^2&nbsp;$$</p>
 <p>Find the partial derivatives of this expression, and calculate the minimum of this function.
 You will get the same exact&nbsp;point.</p>
 <h3>Experiment with other systems and the code (requires <span class="caps">MATLAB</span>/Octave)</h3>
@@ -192,68 +190,6 @@ I have not tested this with Octave, but I don&#8217;t think it should be difficu
 <span class="nb">warning</span><span class="p">(</span><span class="s">&#39;on&#39;</span><span class="p">,</span><span class="s">&#39;MATLAB:fplot:NotVectorized&#39;</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 </td></tr></table>
-<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
-
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
-
-    var mathjaxscript = document.createElement('script');
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
-
-    var configscript = document.createElement('script');
-    configscript.type = 'text/x-mathjax-config';
-    configscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    messageStyle: 'normal'," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        availableFonts: ['STIX', 'TeX']," +
-        "        preferredFont: 'STIX'," +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script>
 		</div>
 
 		<footer>

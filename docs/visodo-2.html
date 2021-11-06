@@ -138,20 +138,26 @@ Even the bad matches look pretty&nbsp;good!</p>
 <img src="../images/VisOdo2/output_12_0.png">
 </p>
 
-<p>These matches will still be pretty noise if I were to detect them across all frames in the video, so we need to somehow enforce the perspective projection/projective geometry model on them.
+<p>These matches will still be pretty noisy if I were to detect them across all frames in the video, so we need to somehow enforce the perspective projection/projective geometry model on them.
 This can be done by using the Fundamental&nbsp;Matrix.</p>
 <h4>Filtering bad matches using the Fundamental&nbsp;Matrix</h4>
-<p>The <strong><a href="https://en.wikipedia.org/wiki/Fundamental_matrix_(computer_vision)">fundamental matrix</a></strong> <span class="math">\(F\)</span> is a matrix that maps points in one image to their matches in the other image (I&#8217;m not fully sure, but this is typically done in a stereo setting &#8212; however a single moving camera is approximately a stereo camera that is not moving, as long as the frame rate is high enough compared to the camera motion).
+<p>The <strong><a href="https://en.wikipedia.org/wiki/Fundamental_matrix_(computer_vision)">fundamental matrix</a></strong> $F$ is a matrix that maps points in one image to their matches in the other image (I&#8217;m not fully sure, but this is typically done in a stereo setting &#8212; however a single moving camera is approximately a stereo camera that is not moving, as long as the frame rate is high enough compared to the camera motion).
 Ok, technically it doesn&#8217;t match points to points, but points to their respective epipolar lines.
 Due to the <a href="https://en.wikipedia.org/wiki/Epipolar_geometry#Epipolar_constraint_and_triangulation">epipolar constraint</a>, it is guaranteed that a point in one image plane will have its match in the other (stereo) image frame on a line (called the epipolar line).
 This is really cool, because now when we search for a match, we just need to search a line in the image instead of the whole 2-D image.
 This constraint restricts our search space by a lot!
 Here, we will use this fact in a reverse way.
 We already have the matches, thanks to our brute-force matcher &#8212; albeit not all of them are high quality as we saw above.
-And we know that the matches must satisfy the epipolar constraint, which is basically saying that they must follow the mapping (or transformation) of the fundamental matrix.
+And we know (actually, we assume) that the matches must satisfy the epipolar constraint, which is basically saying that they must follow the mapping (or transformation) of the fundamental matrix.
 Now, we can tell by looking at each match if it is a good quality match or not, but this constraint gives us a quantitative way of deciding whether a match is a good match or not.
 So, the points that don&#8217;t obey this fundamental matrix transform (or mapping) are bad&nbsp;matches.</p>
 <p>There is an algorithm that fits the best model with specified structure to noisy data, called <a href="https://en.wikipedia.org/wiki/Random_sample_consensus"><span class="caps">RANSAC</span></a>, which can help us check which mapping satisfies most of our data.
+<span class="caps">RANSAC</span> stands for Random Sample Consensus.
+While that may sound fancy, the algorithm itself is fairly common sense.
+<span class="caps">RANSAC</span> takes a <em>random sample</em> of data and fits a model to it.
+It keeps repeating this process until it fits a model that represents most of the data well enough (according to some pre-specified parameters).
+This is the mathematical equivalent of forming an opinion on a topic by asking a bunch of people what they think is right, and then going with whatever most people said is right.
+All things considered, its not a terrible way to form opinions.
 We will use this to filter out bad&nbsp;matches.</p>
 <table class="codeBlocktable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
 <span class="normal">2</span>
@@ -193,68 +199,6 @@ See you <a href="../visodo-3.html">there</a>.</p>
 <li><a href="https://www.youtube.com/playlist?list=PLrHDCRerOaI9HfgZDbiEncG5dx7S3Nz6X"><span class="caps">KITTI</span> Odometry with OpenCV Python</a> by Nate&nbsp;Cibik</li>
 <li>Visual Odometry by David Scaramuzza and Friedrich&nbsp;Fraundorfer</li>
 </ul>
-<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
-    var align = "center",
-        indent = "0em",
-        linebreak = "false";
-
-    if (false) {
-        align = (screen.width < 768) ? "left" : align;
-        indent = (screen.width < 768) ? "0em" : indent;
-        linebreak = (screen.width < 768) ? 'true' : linebreak;
-    }
-
-    var mathjaxscript = document.createElement('script');
-    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
-    mathjaxscript.type = 'text/javascript';
-    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
-
-    var configscript = document.createElement('script');
-    configscript.type = 'text/x-mathjax-config';
-    configscript[(window.opera ? "innerHTML" : "text")] =
-        "MathJax.Hub.Config({" +
-        "    config: ['MMLorHTML.js']," +
-        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
-        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
-        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
-        "    displayAlign: '"+ align +"'," +
-        "    displayIndent: '"+ indent +"'," +
-        "    showMathMenu: true," +
-        "    messageStyle: 'normal'," +
-        "    tex2jax: { " +
-        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
-        "        displayMath: [ ['$$','$$'] ]," +
-        "        processEscapes: true," +
-        "        preview: 'TeX'," +
-        "    }, " +
-        "    'HTML-CSS': { " +
-        "        availableFonts: ['STIX', 'TeX']," +
-        "        preferredFont: 'STIX'," +
-        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
-        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
-        "    }, " +
-        "}); " +
-        "if ('default' !== 'default') {" +
-            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
-                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
-                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
-                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
-                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
-                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
-            "});" +
-        "}";
-
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
-    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
-}
-</script>
 		</div>
 
 		<footer>
