@@ -13,12 +13,15 @@
 			{%- endfor %}
 		</ul>
 	{% elif page.slug == "projects" %}
-		{{ page.content}}
+        This page is a occasionally updated list of posts about projects that I have worked on. 
+        Some posts are simply an explanation of mathematical or scientific concepts that I wanted to learn. 
+        A very good way to learn things is to try an teach them to someone else. 
 		<ul>
 			{% for article in articles|get_article_by_type("ProjectDescription") %}
 			<li><span><a href="/{{ article.url }}">{{ article.title }}</a></span></li>
 			{% endfor %}
 		</ul>
+		{{ page.content}}
 	{% else %}
 		{{ page.content }}
 	{% endif %}

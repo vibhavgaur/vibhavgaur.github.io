@@ -10,6 +10,7 @@ https://vibhavgaur.github.io/archives.html
 https://vibhavgaur.github.io/pages/blog.html
 https://vibhavgaur.github.io/pages/coursework.html
 https://vibhavgaur.github.io/pages/projects.html
+https://vibhavgaur.github.io/thesis-project.html
 https://vibhavgaur.github.io/maze-animation.html
 https://vibhavgaur.github.io/lsq-visualized-overdetermined.html
 https://vibhavgaur.github.io/visodo-2.html
